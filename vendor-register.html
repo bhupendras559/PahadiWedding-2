@@ -1,0 +1,315 @@
+<!DOCTYPE html>
+<html lang="hi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Vendor Registration — PahadiWedding.in</title>
+<meta name="description" content="PahadiWedding.in par apna wedding business free mein list karein. Ranikhet, Almora, Dwarahat aur poore Uttarakhand ke customers tak pahuncho.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Hind:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+:root{--r:#7A1022;--g:#D4AF37;--gr:#2d6a4f;--bg:#faf7f2}
+body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16213e);min-height:100vh;padding:0 0 40px}
+
+/* HEADER */
+.top-bar{background:rgba(0,0,0,0.3);padding:12px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(212,175,55,0.2)}
+.logo{font-family:'Playfair Display',serif;color:var(--g);font-size:1.1rem;font-weight:700;text-decoration:none}
+.logo small{display:block;font-size:0.52rem;color:rgba(255,255,255,0.5);font-family:'Hind',sans-serif;font-weight:400}
+.back-btn{color:rgba(255,255,255,0.6);font-size:0.72rem;text-decoration:none;display:flex;align-items:center;gap:4px}
+
+/* HERO */
+.hero{text-align:center;padding:28px 16px 20px;color:#fff}
+.hero-badge{display:inline-block;background:rgba(212,175,55,0.2);color:var(--g);font-size:0.65rem;font-weight:700;padding:4px 14px;border-radius:18px;letter-spacing:1px;margin-bottom:10px}
+.hero h1{font-family:'Playfair Display',serif;font-size:1.5rem;line-height:1.3;margin-bottom:6px}
+.hero h1 em{color:var(--g);font-style:italic}
+.hero p{font-size:0.78rem;color:rgba(255,255,255,0.65);margin-bottom:16px}
+.benefits{display:flex;justify-content:center;gap:6px;flex-wrap:wrap;margin-bottom:4px}
+.ben{background:rgba(255,255,255,0.08);border:1px solid rgba(212,175,55,0.25);color:rgba(255,255,255,0.85);padding:5px 10px;border-radius:12px;font-size:0.65rem;font-weight:600}
+
+/* FORM CARD */
+.form-wrap{max-width:480px;margin:0 auto;padding:0 14px}
+.form-card{background:#fff;border-radius:20px;padding:22px;box-shadow:0 8px 32px rgba(0,0,0,0.3)}
+
+/* SUCCESS */
+#vregOk{display:none;text-align:center;padding:32px 20px}
+#vregOk .emoji{font-size:3rem;margin-bottom:12px}
+#vregOk h3{font-family:'Playfair Display',serif;color:var(--gr);font-size:1.2rem;margin-bottom:8px}
+#vregOk p{color:#666;font-size:0.82rem;line-height:1.6}
+#vregOk .wa-btn{display:inline-block;background:#25D366;color:#fff;padding:12px 24px;border-radius:12px;font-weight:700;font-size:0.85rem;text-decoration:none;margin-top:16px}
+
+/* FORM FIELDS */
+.fg{margin-bottom:14px}
+.fg label{display:block;font-size:0.72rem;font-weight:700;color:#555;margin-bottom:5px}
+.fg input,.fg select,.fg textarea{width:100%;padding:11px 12px;border:1.5px solid #e0e0e0;border-radius:10px;font-size:0.83rem;font-family:'Hind',sans-serif;outline:none;transition:border-color 0.2s;background:#fff;color:#222}
+.fg input:focus,.fg select:focus,.fg textarea:focus{border-color:var(--r)}
+.fg textarea{resize:none}
+
+/* CHECKBOX GRID */
+.cb-box{border:1.5px solid #e0e0e0;border-radius:10px;padding:12px;background:#fff}
+.cb-section-lbl{font-size:0.62rem;font-weight:700;color:var(--r);letter-spacing:0.5px;margin:8px 0 5px}
+.cb-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px;margin-bottom:6px}
+.cb-item{display:flex;align-items:center;gap:6px;font-size:0.76rem;cursor:pointer;padding:4px 2px}
+.cb-item input{width:15px;height:15px;accent-color:var(--r);cursor:pointer;flex-shrink:0}
+.cb-hint{font-size:0.63rem;color:#bbb;margin-bottom:8px;font-style:italic}
+
+/* PLAN */
+.plan-box{background:#f9f5f0;border-radius:12px;padding:14px;margin-bottom:16px}
+.plan-box p{font-size:0.74rem;font-weight:700;color:#333;margin-bottom:10px}
+.plan-opt{display:flex;align-items:flex-start;gap:10px;margin-bottom:8px;cursor:pointer}
+.plan-opt:last-child{margin-bottom:0}
+.plan-opt input{width:16px;height:16px;margin-top:2px;flex-shrink:0;cursor:pointer}
+.plan-nm{font-size:0.78rem;font-weight:700}
+.plan-sub{font-size:0.62rem;color:#999}
+
+/* SUBMIT */
+.sub-btn{width:100%;background:var(--r);color:#fff;border:none;padding:14px;border-radius:12px;font-size:0.95rem;font-weight:700;cursor:pointer;font-family:'Hind',sans-serif;transition:opacity 0.2s;margin-top:4px}
+.sub-btn:active{opacity:0.85}
+.sub-note{text-align:center;font-size:0.62rem;color:#bbb;margin-top:8px;line-height:1.6}
+
+/* FOOTER NOTE */
+.footer-note{text-align:center;margin-top:20px;padding:0 16px}
+.footer-note a{color:rgba(212,175,55,0.8);font-size:0.72rem;text-decoration:none}
+.footer-note p{color:rgba(255,255,255,0.35);font-size:0.62rem;margin-top:6px}
+
+/* DIVIDER */
+.divider{border:none;border-top:1px solid #f0ebe3;margin:14px 0}
+</style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="top-bar">
+  <a href="https://pahadiwedding.in" class="logo">
+    PahadiWedding.in
+    <small>Uttarakhand ka #1 Wedding Platform</small>
+  </a>
+  <a href="https://pahadiwedding.in" class="back-btn">← Main Site</a>
+</div>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="hero-badge">🏪 VENDOR REGISTRATION</div>
+  <h1>Apna Business <em>List Karo</em></h1>
+  <p>Hazaron wedding families tak pahuncho — bilkul FREE</p>
+  <div class="benefits">
+    <span class="ben">✅ Free Listing</span>
+    <span class="ben">📞 Direct Calls</span>
+    <span class="ben">🏔️ Uttarakhand Focus</span>
+    <span class="ben">⚡ 24hr Approval</span>
+  </div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap">
+  <div class="form-card">
+
+    <!-- SUCCESS STATE -->
+    <div id="vregOk">
+      <div class="emoji">🎉</div>
+      <h3>Registration Ho Gaya!</h3>
+      <p>Aapka business PahadiWedding.in par list hone wala hai.<br>24 ghante mein hamare taraf se call aayegi.</p>
+      <a href="https://wa.me/919456596107" class="wa-btn">📲 WhatsApp pe Baat Karein</a>
+    </div>
+
+    <!-- FORM -->
+    <div id="vregFrm">
+
+      <!-- Business Name -->
+      <div class="fg">
+        <label>🏪 Business ka Naam *</label>
+        <input id="vr_nm" placeholder="Pahadi Decorators, Kumaon Photography...">
+      </div>
+
+      <!-- Category -->
+      <div class="fg">
+        <label>📂 Category * <span style="font-size:.63rem;color:#aaa;font-weight:400">(ek ya zyada chunein)</span></label>
+        <div class="cb-box">
+          <div class="cb-hint">Apni service category chunein</div>
+          <div class="cb-grid">
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Pandit & Muhurat"><span>Pandit & Muhurat</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Card & Printing"><span>Card & Printing</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Jewellery"><span>Jewellery</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Kapde & Lehenga"><span>Kapde & Lehenga</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Makeup & Beauty"><span>Makeup & Beauty</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Mehendi"><span>Mehendi</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Decoration"><span>Decoration</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Catering"><span>Catering</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Photography"><span>Photography</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="DJ & Band"><span>DJ & Band</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Tent & Venue"><span>Tent & Venue</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Transport & Ghodi"><span>Transport & Ghodi</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Furniture"><span>Furniture</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Gifts & Dahej"><span>Gifts & Dahej</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Grah Pravesh"><span>Grah Pravesh</span></label>
+          </div>
+        </div>
+      </div>
+
+      <!-- Owner Name -->
+      <div class="fg">
+        <label>👤 Malik ka Naam *</label>
+        <input id="vr_own" placeholder="Apna naam likhein...">
+      </div>
+
+      <!-- Phone -->
+      <div class="fg">
+        <label>📞 WhatsApp Number *</label>
+        <input id="vr_ph" type="tel" maxlength="10" placeholder="10 digit number...">
+      </div>
+
+      <!-- Location -->
+      <div class="fg">
+        <label>📍 Aap Kahan Service Dete Ho * <span style="font-size:.63rem;color:#aaa;font-weight:400">(ek ya zyada)</span></label>
+        <div class="cb-box">
+          <div class="cb-hint">Jin areas mein service dete ho sab chunein</div>
+          <div class="cb-section-lbl">KUMAON</div>
+          <div class="cb-grid">
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Ranikhet"><span>Ranikhet</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Almora"><span>Almora</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Nainital"><span>Nainital</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Haldwani"><span>Haldwani</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Pithoragarh"><span>Pithoragarh</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Bageshwar"><span>Bageshwar</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Dwarahat"><span>Dwarahat</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Munsiyari"><span>Munsiyari</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Ramnagar"><span>Ramnagar</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Rudrapur"><span>Rudrapur</span></label>
+          </div>
+          <div class="cb-section-lbl">GARHWAL</div>
+          <div class="cb-grid">
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Dehradun"><span>Dehradun</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Haridwar"><span>Haridwar</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Rishikesh"><span>Rishikesh</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Mussoorie"><span>Mussoorie</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Uttarkashi"><span>Uttarkashi</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_loc_cb" value="Chamoli"><span>Chamoli</span></label>
+          </div>
+          <hr class="divider">
+          <label class="cb-item" style="margin-bottom:6px">
+            <input type="checkbox" id="vr_loc_all_uk" onchange="toggleAllUK(this)">
+            <span style="font-weight:700;color:var(--r)">Poora Uttarakhand</span>
+          </label>
+          <label class="cb-item">
+            <input type="checkbox" id="vr_loc_custom_cb" onchange="toggleCustomLoc(this)">
+            <span style="color:#666">Koi aur area likhein...</span>
+          </label>
+          <div id="vrLocCustomDiv" style="display:none;margin-top:8px">
+            <input id="vrLocInp" type="text" placeholder="e.g. Kausani, Binsar, Chaukori..." style="width:100%;padding:9px 11px;border:1.5px solid var(--r);border-radius:8px;font-size:.82rem;font-family:'Hind',sans-serif" maxlength="100">
+          </div>
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="fg">
+        <label>💰 Starting Price *</label>
+        <input id="vr_pr" placeholder="Rs 5000 se shuru, Rs 150/plate...">
+      </div>
+
+      <!-- Experience -->
+      <div class="fg">
+        <label>📅 Kitne Saal Ka Experience Hai?</label>
+        <select id="vr_exp">
+          <option>1-2 saal</option>
+          <option>3-5 saal</option>
+          <option>5-10 saal</option>
+          <option selected>10+ saal</option>
+        </select>
+      </div>
+
+      <!-- Description -->
+      <div class="fg">
+        <label>📝 Apni Service ke Baare Mein Batao <span style="font-size:.63rem;color:#aaa;font-weight:400">(Optional)</span></label>
+        <textarea id="vr_desc" rows="3" placeholder="Kya speciality hai? Kya kya services dete ho?..."></textarea>
+      </div>
+
+      <!-- Plan -->
+      <div class="plan-box">
+        <p>📦 Listing Plan Chunein:</p>
+        <label class="plan-opt">
+          <input type="radio" name="vr_plan" value="free" checked style="accent-color:var(--gr)">
+          <div>
+            <div class="plan-nm" style="color:var(--gr)">Free Plan</div>
+            <div class="plan-sub">Basic listing — bilkul free, koi charge nahi</div>
+          </div>
+        </label>
+        <label class="plan-opt">
+          <input type="radio" name="vr_plan" value="premium" style="accent-color:var(--r)">
+          <div>
+            <div class="plan-nm" style="color:var(--r)">Premium Plan — Rs 500/month</div>
+            <div class="plan-sub">Top listing + zyada visibility + priority approval</div>
+          </div>
+        </label>
+      </div>
+
+      <!-- Submit -->
+      <button class="sub-btn" onclick="submitVReg()">📲 WhatsApp par Register Karo — FREE!</button>
+      <p class="sub-note">24 ghante mein approval • Number bilkul safe hai • Koi hidden charge nahi</p>
+
+    </div><!-- /vregFrm -->
+  </div><!-- /form-card -->
+
+  <!-- Footer Note -->
+  <div class="footer-note">
+    <a href="https://pahadiwedding.in">← PahadiWedding.in par wapas jaayein</a>
+    <p>Koi sawaal? WhatsApp karein: 9456596107</p>
+  </div>
+</div>
+
+<script>
+function toggleAllUK(cb){
+  document.querySelectorAll('input[name="vr_loc_cb"]').forEach(function(c){c.checked=cb.checked});
+}
+function toggleCustomLoc(cb){
+  document.getElementById('vrLocCustomDiv').style.display=cb.checked?'block':'none';
+}
+
+function submitVReg(){
+  var nm=document.getElementById('vr_nm').value.trim();
+  var own=document.getElementById('vr_own').value.trim();
+  var ph=document.getElementById('vr_ph').value.trim();
+  var pr=document.getElementById('vr_pr').value.trim();
+
+  // Validation
+  if(!nm){alert('Business ka naam zaroori hai!');document.getElementById('vr_nm').focus();return;}
+  if(!own){alert('Malik ka naam zaroori hai!');document.getElementById('vr_own').focus();return;}
+  if(!ph||ph.length!==10||isNaN(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
+  if(!pr){alert('Starting price zaroori hai!');document.getElementById('vr_pr').focus();return;}
+
+  var cats=[...document.querySelectorAll('input[name="vr_cat_cb"]:checked')].map(function(c){return c.value});
+  if(!cats.length){alert('Kam se kam ek category chunein!');return;}
+
+  var locs=[...document.querySelectorAll('input[name="vr_loc_cb"]:checked')].map(function(c){return c.value});
+  var allUK=document.getElementById('vr_loc_all_uk').checked;
+  if(allUK) locs=['Poora Uttarakhand'];
+  var customLoc=document.getElementById('vrLocInp')?document.getElementById('vrLocInp').value.trim():'';
+  if(customLoc) locs.push(customLoc);
+  if(!locs.length){alert('Kam se kam ek location chunein!');return;}
+
+  var exp=document.getElementById('vr_exp').value;
+  var desc=document.getElementById('vr_desc').value.trim();
+  var plan=document.querySelector('input[name="vr_plan"]:checked').value;
+
+  var msg='🏪 *PAHADIWEDDING VENDOR REGISTRATION*\n\n'
+    +'*Business:* '+nm+'\n'
+    +'*Malik:* '+own+'\n'
+    +'*Phone:* '+ph+'\n'
+    +'*Category:* '+cats.join(', ')+'\n'
+    +'*Location:* '+locs.join(', ')+'\n'
+    +'*Price:* '+pr+'\n'
+    +'*Experience:* '+exp+'\n'
+    +(desc?'*Service:* '+desc+'\n':'')
+    +'*Plan:* '+(plan==='premium'?'Premium (Rs 500/month)':'Free Plan')+'\n\n'
+    +'_PahadiWedding.in se registration_';
+
+  var url='https://wa.me/919456596107?text='+encodeURIComponent(msg);
+  window.open(url,'_blank');
+
+  // Show success
+  document.getElementById('vregFrm').style.display='none';
+  document.getElementById('vregOk').style.display='block';
+  window.scrollTo({top:0,behavior:'smooth'});
+}
+</script>
+</body>
+</html>
