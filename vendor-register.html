@@ -273,7 +273,7 @@ function submitVReg(){
   // Validation
   if(!nm){alert('Business ka naam zaroori hai!');document.getElementById('vr_nm').focus();return;}
   if(!own){alert('Malik ka naam zaroori hai!');document.getElementById('vr_own').focus();return;}
-  if(!ph||ph.length!==10||isNaN(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
+  if(!/^\\d{10}$/.test(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
   if(!pr){alert('Starting price zaroori hai!');document.getElementById('vr_pr').focus();return;}
 
   var cats=[...document.querySelectorAll('input[name="vr_cat_cb"]:checked')].map(function(c){return c.value});
@@ -288,7 +288,8 @@ function submitVReg(){
 
   var exp=document.getElementById('vr_exp').value;
   var desc=document.getElementById('vr_desc').value.trim();
-  var plan=document.querySelector('input[name="vr_plan"]:checked').value;
+  var selectedPlan=document.querySelector('input[name="vr_plan"]:checked');
+  var plan=selectedPlan?selectedPlan.value:'free';
 
   var msg='🏪 *PAHADIWEDDING VENDOR REGISTRATION*\n\n'
     +'*Business:* '+nm+'\n'
