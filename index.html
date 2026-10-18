@@ -190,8 +190,9 @@ style="display:flex;align-items:center;gap:10px;background:#25D366;color:#fff;pa
 </section><section class="sec" id="gallery" style="background:#fff">
 <div class="sw">
 <span class="slbl" id="galLbl">शादी गैलरी</span>
-<h2 class="stitle" id="galTitle">हमारी शादियों की झलक</h2>
-<p class="ssub" id="galSub">हर शादी एक यादगार कहानी</p>
+<h2 class="stitle" id="galTitle">शादी की फोटो इंस्पिरेशन</h2>
+<p class="ssub" id="galSub">डेकोरेशन, आयोजन और फोटो के आइडिया</p>
+<p style="max-width:720px;margin:0 auto 18px;text-align:center;color:#8a817b;font-size:.78rem;line-height:1.6">ये उदाहरण के तौर पर इस्तेमाल की गई स्टॉक फ़ोटोज़ हैं, PahadiWedding के verified client events की तस्वीरें नहीं। असली स्थानीय शादी की तस्वीरें verification के बाद जोड़ी जाएँगी।</p>
 <div class="gal-grid">
 <div class="gal-item" onclick="openGal(0)"><img src="https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85" alt="Mandap"><div style="font-size:0.65rem;color:#999;text-align:center;margin-top:3px" id="gl1">मंडप सेटअप</div></div>
 <div class="gal-item" onclick="openGal(1)"><img src="https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85" alt="Couple"><div style="font-size:0.65rem;color:#999;text-align:center;margin-top:3px" id="gl2">कपल फोटो</div></div>
@@ -737,7 +738,7 @@ pkgBk1:' अभी बुक करें',pkgBk2:' अभी बुक कर�
 vndLbl:'भरोसेमंद विक्रेता',vndTitle:'विक्रेता श्रेणियाँ',
 vndSub:'सभी वेरिफाइड विक्रेता — Number Request से संपर्क करें',
 vndChoose:'ऊपर से श्रेणी चुनें!',vndCatSub:'15 श्रेणियाँ — 120+ सत्यापित विक्रेता',
-galLbl:'विवाह गैलरी',galTitle:'हमारी शादियों की झलक',galSub:'हर शादी एक यादगार कहानी',
+galLbl:'विवाह गैलरी',galTitle:'शादी की फोटो इंस्पिरेशन',galSub:'डेकोरेशन, आयोजन और फोटो के आइडिया',
 gl1:'मंडप सेटअप',gl2:'कपल फोटो',gl3:'सजावट',gl4:'मेहंदी',gl5:'खानपान',gl6:'रात का जश्न',
 venLbl:'शीर्ष स्थान',venTitle:'उत्तराखंड के बेस्ट Venues',venSub:'पहाड़ की गोद में — सपनों का स्थान',
 ven1Sub:'Himalayan views, ठंडा मौसम, हरियाली',
@@ -1163,21 +1164,21 @@ function buildCal(){
  if(m)m.textContent=t.calMon;
 }
 var GALS=[
- {src:'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85',hi:'Tent Sajawat - Ranikhet',en:'Tent Decoration - Ranikhet'},
- {src:'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=85',hi:'Catering Bufet',en:'Catering Buffet'},
- {src:'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85',hi:'Stage Sajawat - Almora',en:'Stage Decoration - Almora'},
- {src:'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',hi:'Mandap Setup',en:'Mandap Setup'},
- {src:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',hi:'Entry Gate',en:'Entry Gate'},
- {src:'https://images.unsplash.com/photo-1519225421980-888cbf3f7c11?auto=format&fit=crop&w=1200&q=85',hi:'Mehendi Sajawat',en:'Mehendi Decoration'},
- {src:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85',hi:'Haldi Setup',en:'Haldi Setup'},
- {src:'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=85',hi:'Outdoor Stage',en:'Outdoor Stage'},
- {src:'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=85',hi:'Gulabi Theme',en:'Pink Theme'},
- {src:'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85',hi:'Night Lighting',en:'Night Lighting'},
- {src:'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=1200&q=85',hi:'Arch Entry Gate',en:'Arch Entry Gate'},
- {src:'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85',hi:'Colorful Sajawat',en:'Colorful Decoration'},
- {src:'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',hi:'Mehendi Stage Night',en:'Mehendi Stage Night'},
- {src:'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=1200&q=85',hi:'Pink Arch',en:'Pink Arch'},
- {src:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',hi:'Star Stage',en:'Star Stage'}
+ {src:'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85',hi:'वेडिंग डेकोरेशन इंस्पिरेशन',en:'Wedding Decor Inspiration'},
+ {src:'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',hi:'कपल फोटो इंस्पिरेशन',en:'Wedding Couple Photo Inspiration'},
+ {src:'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85',hi:'टेबल और फ्लोरल डेकोर',en:'Table and Floral Decor'},
+ {src:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',hi:'वेडिंग सेलिब्रेशन इंस्पिरेशन',en:'Wedding Celebration Inspiration'},
+ {src:'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=85',hi:'आउटडोर वेडिंग इंस्पिरेशन',en:'Outdoor Wedding Inspiration'},
+ {src:'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=1200&q=85',hi:'वेडिंग डे इंस्पिरेशन',en:'Wedding Day Inspiration'},
+ {src:'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=85',hi:'कैटरिंग और फूड सेटअप',en:'Catering and Food Setup'},
+ {src:'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?auto=format&fit=crop&w=1200&q=85',hi:'सेरेमनी डेकोर इंस्पिरेशन',en:'Ceremony Decor Inspiration'},
+ {src:'https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=1200&q=85',hi:'रिसेप्शन सेटअप इंस्पिरेशन',en:'Reception Setup Inspiration'},
+ {src:'https://images.unsplash.com/photo-1464366400600-7168b8af9bc3?auto=format&fit=crop&w=1200&q=85',hi:'फ्लोरल डेकोरेशन इंस्पिरेशन',en:'Floral Decoration Inspiration'},
+ {src:'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=1200&q=85',hi:'वेडिंग फोटो आइडिया',en:'Wedding Photo Ideas'},
+ {src:'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=1200&q=85',hi:'फैमिली सेलिब्रेशन इंस्पिरेशन',en:'Family Celebration Inspiration'},
+ {src:'https://images.unsplash.com/photo-1507504031003-b417219a0fde?auto=format&fit=crop&w=1200&q=85',hi:'गार्डन वेडिंग इंस्पिरेशन',en:'Garden Wedding Inspiration'},
+ {src:'https://images.unsplash.com/photo-1465495976277-4387d4b0e4a6?auto=format&fit=crop&w=1200&q=85',hi:'वेडिंग मोमेंट्स इंस्पिरेशन',en:'Wedding Moments Inspiration'},
+ {src:'https://images.unsplash.com/photo-1555244162-803834f70033?auto=format&fit=crop&w=1200&q=85',hi:'वेडिंग फूड इंस्पिरेशन',en:'Wedding Food Inspiration'}
 ];
 var galIdx=0;
 function openGal(i){galIdx=i;document.getElementById('galImg').src=GALS[i].src;document.getElementById('galCap').textContent=GALS[i][LG];document.getElementById('galModal').classList.add('on');}
