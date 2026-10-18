@@ -78,6 +78,41 @@ img{max-width:100%;height:auto} .gal-item img{width:100%;height:190px;object-fit
 </style>
 <!-- Facebook Pixel: Add your real Pixel ID here when ready -->
 <!-- Google Analytics: Add your real GA4 ID here when ready -->
+
+<!-- PahadiWedding premium visual refresh | build 2026-10-18-v2 -->
+<style id="pw-premium-refresh">
+:root{--pw-wine:#68152d;--pw-wine-deep:#310714;--pw-gold:#d9b65c;--pw-cream:#fff9f1;--pw-ink:#2a2024;--pw-muted:#74666b}
+html{scroll-behavior:smooth;scroll-padding-top:86px}
+body{background:var(--pw-cream);color:var(--pw-ink)}
+.hdr{box-shadow:0 8px 28px rgba(49,7,20,.07)}
+.hero{isolation:isolate;min-height:510px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:74px 18px 68px!important;background:linear-gradient(105deg,rgba(36,5,17,.88),rgba(78,12,35,.67) 54%,rgba(36,5,17,.42)),url('https://images.unsplash.com/photo-1519167758481-83f550bb49b3?auto=format&fit=crop&w=2000&q=88') center 48%/cover no-repeat!important;position:relative}
+.hero:after{content:"";position:absolute;inset:0;border-bottom:4px solid var(--pw-gold);pointer-events:none;z-index:-1}
+.hero h1{max-width:900px;font-size:clamp(2rem,5.3vw,4.25rem)!important;line-height:1.14!important;text-shadow:0 4px 24px #18030a}
+.hero p{max-width:690px;font-size:clamp(.92rem,2vw,1.12rem)!important;line-height:1.8!important}
+.hero .badges{gap:10px}
+.hero .badge{padding:9px 15px;background:rgba(255,255,255,.12);border-color:rgba(235,205,122,.55);backdrop-filter:blur(8px)}
+.trust{max-width:1050px;margin:-1px auto 22px;border:1px solid #eee2d3;border-radius:0 0 20px 20px;box-shadow:0 12px 30px #3d09180b}
+.trust .ti strong{font-size:1.2rem;color:var(--pw-wine)}
+.sec,.vnd-sec,.venues{scroll-margin-top:80px}
+.slbl{background:#f6ead4!important;color:var(--pw-wine)!important;border:1px solid #ead5a7;letter-spacing:.8px}
+.stitle{font-size:clamp(1.55rem,3vw,2.2rem)!important;color:var(--pw-wine);letter-spacing:-.3px}
+.ssub{font-size:.9rem!important;color:var(--pw-muted)!important;line-height:1.7}
+.gal-grid{display:grid!important;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px!important}
+.gal-item{overflow:hidden;border-radius:18px;background:#fff;padding:8px 8px 12px;box-shadow:0 10px 30px rgba(55,20,29,.09);border:1px solid #f0e6db;transition:transform .25s,box-shadow .25s}
+.gal-item:hover{transform:translateY(-5px);box-shadow:0 18px 38px rgba(55,20,29,.16)}
+.gal-item img{width:100%;height:clamp(150px,22vw,270px);object-fit:cover;border-radius:12px;display:block;background:linear-gradient(135deg,#e8d7bd,#6b1730)}
+.gal-item div{padding:8px 2px 0;font-size:.78rem!important;color:#5e2638!important;font-weight:700}
+.vnd-sec .cat-card,#catGrid>*,.gal-item,.venue-card{transition:transform .2s,box-shadow .2s}
+#catGrid>*{border-radius:16px!important;box-shadow:0 8px 24px rgba(55,20,29,.07)!important;border:1px solid #eee2d7!important}
+#catGrid>*:hover{transform:translateY(-3px)}
+#venues img{border-radius:15px}
+.sec{padding-top:48px;padding-bottom:48px}
+button,a{ -webkit-tap-highlight-color:transparent}
+a:focus-visible,button:focus-visible{outline:3px solid #d9b65c;outline-offset:3px}
+@media(max-width:700px){.hero{min-height:440px;padding:54px 16px!important;background-position:55% center!important}.gal-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important;gap:10px!important}.gal-item{padding:5px 5px 9px}.gal-item img{height:170px}.trust{margin:0 10px 16px;border-radius:0 0 16px 16px}.sec{padding-top:36px;padding-bottom:36px}}
+@media(max-width:380px){.gal-item img{height:135px}.hero h1{font-size:1.85rem!important}}
+</style>
+
 </head>
 <body><div id="lgPop">
 <div class="lg-box">
@@ -2401,5 +2436,23 @@ Example: 9456100001 &rarr; <strong>0001</strong>
 <button onclick="submitContactReq()" class="gbtn">WhatsApp par Request Bhejein</button>
 <button class="rbtn" data-close="contactReqModal">Cancel</button>
 </div></div></div>
+
+<script id="pw-image-resilience">
+(function(){
+  var fallback='/og-image.jpg';
+  document.querySelectorAll('img').forEach(function(img){
+    img.addEventListener('error',function(){
+      if(img.dataset.pwFallback)return;
+      img.dataset.pwFallback='1';
+      img.src=fallback;
+      img.style.objectFit='cover';
+      img.style.background='linear-gradient(135deg,#ead8b7,#68152d)';
+    },{once:true});
+    if(!img.hasAttribute('loading') && img.id!=='galImg') img.loading='lazy';
+    if(!img.hasAttribute('decoding')) img.decoding='async';
+  });
+})();
+</script>
+
 </body>
 </html>
