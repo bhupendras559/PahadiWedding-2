@@ -2,7 +2,7 @@
 <html lang="hi">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
 <title>Wedding Planning — PahadiWedding.in</title>
 <meta name="description" content="Uttarakhand mein apni dream wedding plan karein. Ranikhet, Almora, Dwarahat ke best verified vendors — FREE consultation!">
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -267,6 +267,9 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
 
 <script>
 var budgetValues=['₹1 Lakh','₹2 Lakh','₹3 Lakh','₹4 Lakh','₹5 Lakh','₹6 Lakh','₹7 Lakh','₹8 Lakh','₹9 Lakh','₹10 Lakh+'];
+
+// Prevent selecting past wedding dates in the browser date picker.
+(function(){var dateInput=document.getElementById('bk_date');if(!dateInput)return;var today=new Date();dateInput.min=[today.getFullYear(),String(today.getMonth()+1).padStart(2,'0'),String(today.getDate()).padStart(2,'0')].join('-');})();
 
 function updateBudget(v){
   document.getElementById('budgetVal').textContent=budgetValues[parseInt(v)-1];
