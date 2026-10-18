@@ -117,7 +117,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
 
   <!-- URGENCY -->
   <div class="urgency">
-    <p>🔥 April-June 2025 ki dates tezi se bhar rahi hain — abhi contact karein!</p>
+    <p>Apni wedding date aur requirements share karein — hum planning mein madad karenge.</p>
   </div>
 
   <div class="form-card">
@@ -280,6 +280,7 @@ function submitBooking(){
   if(!ph||ph.length!==10||isNaN(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('bk_ph').focus();return;}
 
   var date=document.getElementById('bk_date').value;
+  if(date){var chosen=new Date(date+'T00:00:00');var today=new Date();today.setHours(0,0,0,0);if(chosen<today){alert('Please future date select karein.');document.getElementById('bk_date').focus();return;}}
   var loc=document.getElementById('bk_loc').value;
   var guests=document.getElementById('bk_guests').value;
   var budget=budgetValues[parseInt(document.getElementById('bk_budget').value)-1];
