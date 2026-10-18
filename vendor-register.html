@@ -273,7 +273,7 @@ function submitVReg(){
   // Validation
   if(!nm){alert('Business ka naam zaroori hai!');document.getElementById('vr_nm').focus();return;}
   if(!own){alert('Malik ka naam zaroori hai!');document.getElementById('vr_own').focus();return;}
-  if(!/^\\d{10}$/.test(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
+  if(!/^\d{10}$/.test(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
   if(!pr){alert('Starting price zaroori hai!');document.getElementById('vr_pr').focus();return;}
 
   var cats=[...document.querySelectorAll('input[name="vr_cat_cb"]:checked')].map(function(c){return c.value});
