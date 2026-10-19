@@ -75,7 +75,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
 
 /* FEATURES */
 .features{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:18px}
-.feat{background:#f9f5f0;border-radius:10px;padding:10px;text-align:center}
+.feat{background:#f9f5f0;border-radius:10px;padding:10px;text-align:center;display:block;text-decoration:none;color:inherit;border:1px solid #eee0d5}.feat:focus-visible{outline:3px solid var(--g);outline-offset:2px}.feat:active{background:#f2e8dc}
 .feat-icon{font-size:1.3rem;margin-bottom:4px}
 .feat-txt{font-size:0.65rem;color:#555;font-weight:600;line-height:1.4}
 
@@ -107,8 +107,8 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
   <div class="trust-row">
     <span class="trust-badge">✅ FREE Consultation</span>
     <span class="trust-badge">🏔️ Pahadi Vendors</span>
-    <span class="trust-badge">⚡ 24hr Response</span>
-    <span class="trust-badge">💯 Verified</span>
+    <span class="trust-badge">📲 WhatsApp Enquiry</span>
+    <span class="trust-badge">📝 Planning Guides</span>
   </div>
 </div>
 
@@ -122,7 +122,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
 
   <div class="form-card">
     <p class="form-title">📋 Free Wedding Consultation</p>
-    <p class="form-sub">Form bharein — 24 ghante mein hamare expert aapse baat karenge</p>
+    <p class="form-sub">Form bharein aur WhatsApp par apni enquiry Send karein</p>
 
     <!-- SUCCESS -->
     <div id="bookOk">
@@ -130,7 +130,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
       <h3>WhatsApp par enquiry bhejein</h3>
       <p>Aapki details WhatsApp message mein taiyaar hongi. <strong>Enquiry tabhi humein milegi jab aap WhatsApp khulne ke baad Send dabayenge.</strong><br><br>
       Message nahi khula? Neeche WhatsApp dobara khol sakte hain:</p>
-      <a href="https://wa.me/919456596107" class="wa-btn">📲 Abhi WhatsApp Karein</a>
+      <a id="retryWa" href="https://wa.me/919456596107" target="_blank" rel="noopener noreferrer" class="wa-btn">📲 Apni enquiry WhatsApp par bhejein</a>
     </div>
 
     <!-- FORM -->
@@ -231,35 +231,31 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
 
       <!-- SUBMIT -->
       <button class="sub-btn" onclick="submitBooking()">💍 FREE Consultation Book Karein</button>
-      <p class="sub-note">✅ Bilkul FREE • 24hr mein call • Koi commitment nahi</p>
+      <p class="sub-note">WhatsApp khulne par Send dabana zaroori hai • Koi commitment nahi</p>
 
     </div><!-- /bookFrm -->
   </div><!-- /form-card -->
 
-  <!-- FEATURES -->
-  <div class="features">
-    <div class="feat">
-      <div class="feat-icon">🏔️</div>
-      <div class="feat-txt">Local Pahadi<br>Vendors</div>
-    </div>
-    <div class="feat">
-      <div class="feat-icon">✅</div>
-      <div class="feat-txt">Verified &<br>Trusted</div>
-    </div>
-    <div class="feat">
-      <div class="feat-icon">💰</div>
-      <div class="feat-txt">Best Price<br>Guarantee</div>
-    </div>
-    <div class="feat">
-      <div class="feat-icon">📞</div>
-      <div class="feat-txt">24hr Personal<br>Support</div>
-    </div>
-  </div>
+  <!-- WORKING CONTACT AND PLANNING LINKS -->
+  <nav class="features" aria-label="Contact and wedding planning">
+    <a class="feat" href="/vendors.html">
+      <div class="feat-icon">🏔️</div><div class="feat-txt">Explore Local<br>Vendors ↗</div>
+    </a>
+    <a class="feat" href="/blog.html">
+      <div class="feat-icon">📖</div><div class="feat-txt">Wedding Planning<br>Guides ↗</div>
+    </a>
+    <a class="feat" href="tel:+919456596107">
+      <div class="feat-icon">📞</div><div class="feat-txt">Call for Wedding<br>Enquiry ↗</div>
+    </a>
+    <a class="feat" href="https://wa.me/919456596107?text=Namaste%2C%20mujhe%20Uttarakhand%20wedding%20planning%20ki%20jankari%20chahiye." target="_blank" rel="noopener noreferrer">
+      <div class="feat-icon">💬</div><div class="feat-txt">Contact on<br>WhatsApp ↗</div>
+    </a>
+  </nav>
 
   <!-- FOOTER -->
   <div class="footer-note">
     <a href="https://pahadiwedding.in">← PahadiWedding.in par jaayein</a>
-    <p>Koi sawaal? WhatsApp: 9456596107</p>
+    <p>Koi sawaal? <a href="https://wa.me/919456596107" target="_blank" rel="noopener noreferrer">WhatsApp: 9456596107 ↗</a> · <a href="tel:+919456596107">Call ↗</a></p>
   </div>
 
 </div><!-- /form-wrap -->
@@ -303,6 +299,7 @@ function submitBooking(){
     +'\n_PahadiWedding.in se enquiry_';
 
   var url='https://wa.me/919456596107?text='+encodeURIComponent(waMsg);
+  document.getElementById('retryWa').href=url;
   var waWindow=window.open(url,'_blank');
   if(!waWindow){
     alert('WhatsApp message open nahi hua. Browser pop-ups allow karein ya neeche WhatsApp button se contact karein. Aapki details form mein abhi bhi safe hain.');
