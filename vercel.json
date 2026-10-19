@@ -4,21 +4,6 @@
       "source": "/blog/index.html",
       "destination": "/blog.html",
       "permanent": true
-    },
-    {
-      "source": "/blog/choose-wedding-photographer-uttarakhand",
-      "destination": "/blog.html?slug=how-to-choose-wedding-photographer-uttarakhand",
-      "permanent": true
-    },
-    {
-      "source": "/blog/kumaoni-wedding-rituals-traditions",
-      "destination": "/blog.html?slug=pahadi-wedding-traditions-kumaon-ceremonies",
-      "permanent": true
-    },
-    {
-      "source": "/blog/:slug",
-      "destination": "/blog.html?slug=:slug",
-      "permanent": true
     }
   ]
 }
