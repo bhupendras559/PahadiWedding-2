@@ -4,6 +4,42 @@
       "source": "/blog/index.html",
       "destination": "/blog.html",
       "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "how-to-choose-wedding-photographer-uttarakhand"
+        }
+      ],
+      "destination": "/blog/choose-wedding-photographer-uttarakhand",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "pahadi-wedding-traditions-kumaon-ceremonies"
+        }
+      ],
+      "destination": "/blog/kumaoni-wedding-rituals-traditions",
+      "permanent": true
+    },
+    {
+      "source": "/blog.html",
+      "has": [
+        {
+          "type": "query",
+          "key": "slug",
+          "value": "uttarakhand-mountain-wedding-venue-checklist"
+        }
+      ],
+      "destination": "/blog/uttarakhand-mountain-wedding-venue-checklist",
+      "permanent": true
     }
   ]
 }
