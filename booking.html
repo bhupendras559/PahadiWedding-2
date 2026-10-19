@@ -127,10 +127,9 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
     <!-- SUCCESS -->
     <div id="bookOk">
       <div class="emoji">💍</div>
-      <h3>Shukriya! Form Mil Gaya!</h3>
-      <p>Aapki wedding details hamare paas pahunch gayi hain.<br>
-      <strong>24 ghante mein</strong> hamare Pahadi Wedding expert aapse personally baat karenge.<br><br>
-      Koi urgent sawaal ho to seedha WhatsApp karein:</p>
+      <h3>WhatsApp par enquiry bhejein</h3>
+      <p>Aapki details WhatsApp message mein taiyaar hongi. <strong>Enquiry tabhi humein milegi jab aap WhatsApp khulne ke baad Send dabayenge.</strong><br><br>
+      Message nahi khula? Neeche WhatsApp dobara khol sakte hain:</p>
       <a href="https://wa.me/919456596107" class="wa-btn">📲 Abhi WhatsApp Karein</a>
     </div>
 
@@ -304,8 +303,11 @@ function submitBooking(){
     +'\n_PahadiWedding.in se enquiry_';
 
   var url='https://wa.me/919456596107?text='+encodeURIComponent(waMsg);
-  window.open(url,'_blank');
-
+  var waWindow=window.open(url,'_blank');
+  if(!waWindow){
+    alert('WhatsApp message open nahi hua. Browser pop-ups allow karein ya neeche WhatsApp button se contact karein. Aapki details form mein abhi bhi safe hain.');
+    return;
+  }
   document.getElementById('bookFrm').style.display='none';
   document.getElementById('bookOk').style.display='block';
   window.scrollTo({top:0,behavior:'smooth'});
