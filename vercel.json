@@ -40,6 +40,26 @@
       ],
       "destination": "/blog/uttarakhand-mountain-wedding-venue-checklist",
       "permanent": true
+    },
+    {
+      "source": "/destinations/mukteshwar.html",
+      "destination": "/mukteshwar-wedding-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/destinations/nainital.html",
+      "destination": "/nainital-wedding-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/destinations/ranikhet.html",
+      "destination": "/ranikhet-wedding-guide.html",
+      "permanent": true
+    },
+    {
+      "source": "/destinations/almora.html",
+      "destination": "/almora-wedding-guide.html",
+      "permanent": true
     }
   ]
 }
