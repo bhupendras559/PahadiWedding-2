@@ -60,6 +60,16 @@
       "source": "/destinations/almora.html",
       "destination": "/almora-wedding-guide.html",
       "permanent": true
+    },
+    {
+      "source": "/two-villages.html",
+      "destination": "/blog/village-wedding-uttarakhand-planning-guide",
+      "permanent": true
+    },
+    {
+      "source": "/vendors.html",
+      "destination": "/vendor-register.html",
+      "permanent": true
     }
   ]
 }
