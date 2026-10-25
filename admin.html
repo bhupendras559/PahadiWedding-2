@@ -12,7 +12,7 @@
 <body>
 <header><div class="inner"><div class="brand">🏔️ PahadiWedding.in <div style="font: .8rem system-ui;color:#f4dfb5;margin-top:4px">Private Admin Dashboard</div></div><div class="actions"><a class="btn secondary" href="/">Website Home</a><a class="btn secondary" href="/editor-login-2026.html">Blog Editor</a><button id="logout" class="secondary hidden">Log out</button></div></div></header>
 <main class="wrap">
-<section id="loginPanel" class="panel"><h1>Admin Login</h1><p class="muted">Admin access is restricted to the authorized account only.</p><div id="loginMsg" class="msg" role="status" aria-live="polite"></div><form id="loginForm"><label for="email">Authorized admin email</label><input id="email" type="email" autocomplete="username" value="bhupendras559receaption3@gmail.com" readonly required><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required><p class="actions"><button class="primary" id="loginBtn">Log in securely</button><button class="secondary" type="button" id="resetBtn">Forgot password</button></p></form><p class="muted">Only the authorized admin email is allowed. No public admin signup is provided.</p></section>
+<section id="loginPanel" class="panel"><h1>Admin Login</h1><p class="muted">Admin access is restricted to the authorized account only.</p><div id="loginMsg" class="msg" role="status" aria-live="polite"></div><form id="loginForm"><label for="email">Authorized admin email</label><input id="email" type="email" autocomplete="username" value="bhupendras559@gmail.com" readonly required><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" required><p class="actions"><button class="primary" id="loginBtn">Log in securely</button><button class="secondary" type="button" id="resetBtn">Forgot password</button></p></form><p class="muted">Only the authorized admin email is allowed. No public admin signup is provided.</p></section>
 <section id="recoveryPanel" class="panel hidden"><h1>Create a new admin password</h1><p class="muted">Set and confirm a new password below. You must save the new password before signing in again.</p><div id="recoveryMsg" class="msg" role="status" aria-live="polite"></div><form id="recoveryForm"><label for="newPassword">New password</label><input id="newPassword" type="password" minlength="10" autocomplete="new-password" required><label for="confirmPassword">Confirm new password</label><input id="confirmPassword" type="password" minlength="10" autocomplete="new-password" required><p class="actions"><button class="primary" id="savePasswordBtn">Save new password</button></p></form></section>
 <section id="dashboard" class="hidden">
 <div class="panel"><div class="topline"><div><h1>Admin Dashboard</h1><p id="welcome" class="muted"></p></div><button class="secondary" id="reload">Refresh data</button></div><div id="dashMsg" class="msg" role="status" aria-live="polite"></div><div class="stats" id="stats"></div></div>
@@ -24,7 +24,7 @@
 (function(){
 'use strict';
 const URL='https://evjzwhqheycsmvmjnclf.supabase.co';
-const ADMIN_EMAIL='bhupendras559receaption3@gmail.com';
+const ADMIN_EMAIL='bhupendras559@gmail.com';
 const KEY='sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ';
 const db=window.supabase.createClient(URL,KEY);
 const $=id=>document.getElementById(id);let user=null;let activeTab='leads';let cache={};
