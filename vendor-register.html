@@ -97,7 +97,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
     <span class="ben">✅ Free Listing</span>
     <span class="ben">📞 Direct Calls</span>
     <span class="ben">🏔️ Uttarakhand Focus</span>
-    <span class="ben">⚡ 24hr Approval</span>
+    <span class="ben">⚡ Admin Review</span>
   </div>
 </div>
 
@@ -109,7 +109,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
     <div id="vregOk">
       <div class="emoji">🎉</div>
       <h3>Registration Submitted!</h3>
-      <p>Your business registration has been submitted.<br>24 ghante mein hamare taraf se call aayegi.</p>
+      <p>Your business registration has been submitted.<br>We may contact you if further information is required.</p>
       <a href="https://wa.me/919456596107" class="wa-btn">📲 Continue on WhatsApp</a>
     </div>
 
@@ -118,7 +118,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
 
       <!-- Business Name -->
       <div class="fg">
-        <label>🏪 Business ka Naam *</label>
+        <label>🏪 Business Name *</label>
         <input id="vr_nm" placeholder="Pahadi Decorators, Kumaon Photography...">
       </div>
 
@@ -128,10 +128,10 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
         <div class="cb-box">
           <div class="cb-hint">Choose your service category</div>
           <div class="cb-grid">
-            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Pandit & Muhurat"><span>Pandit & Muhurat</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Priest & Ceremony Planning"><span>Priest & Ceremony Planning</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Card & Printing"><span>Card & Printing</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Jewellery"><span>Jewellery</span></label>
-            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Kapde & Lehenga"><span>Kapde & Lehenga</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Wedding Clothing & Outfits"><span>Wedding Clothing & Outfits</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Makeup & Beauty"><span>Makeup & Beauty</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Mehendi"><span>Mehendi</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Decoration"><span>Decoration</span></label>
@@ -141,8 +141,8 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Tent & Venue"><span>Tent & Venue</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Transport & Ghodi"><span>Transport & Ghodi</span></label>
             <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Furniture"><span>Furniture</span></label>
-            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Gifts & Dahej"><span>Gifts & Dahej</span></label>
-            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Grah Pravesh"><span>Grah Pravesh</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Gifts & Wedding Favours"><span>Gifts & Wedding Favours</span></label>
+            <label class="cb-item"><input type="checkbox" name="vr_cat_cb" value="Housewarming Services"><span>Housewarming Services</span></label>
           </div>
         </div>
       </div>
@@ -211,17 +211,17 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
       <div class="fg">
         <label>📅 Years of Experience</label>
         <select id="vr_exp">
-          <option>1-2 saal</option>
-          <option>3-5 saal</option>
-          <option>5-10 saal</option>
-          <option selected>10+ saal</option>
+          <option>1–2 years</option>
+          <option>3–5 years</option>
+          <option>5–10 years</option>
+          <option selected>10+ years</option>
         </select>
       </div>
 
       <!-- Description -->
       <div class="fg">
         <label>📝 Apni Service ke Baare Mein Batao <span style="font-size:.63rem;color:#aaa;font-weight:400">(Optional)</span></label>
-        <textarea id="vr_desc" rows="3" placeholder="Kya speciality hai? Kya kya services dete ho?..."></textarea>
+        <textarea id="vr_desc" rows="3" placeholder="What speciality hai? What kya services dete ho?..."></textarea>
       </div>
 
       <!-- Plan -->
@@ -280,7 +280,7 @@ async function submitVReg(){
   if(!/^\\d{10}$/.test(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
   if(!pr){alert('Starting price zaroori hai!');document.getElementById('vr_pr').focus();return;}
   var cats=[...document.querySelectorAll('input[name="vr_cat_cb"]:checked')].map(function(c){return c.value});
-  if(!cats.length){alert('Kam se kam ek category chunein!');return;}
+  if(!cats.length){alert('Please select at least one category.');return;}
   var locs=[...document.querySelectorAll('input[name="vr_loc_cb"]:checked')].map(function(c){return c.value});
   var allUK=document.getElementById('vr_loc_all_uk').checked;
   if(allUK) locs=['Across Uttarakhand'];
