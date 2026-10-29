@@ -128,7 +128,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
     <!-- SUCCESS -->
     <div id="bookOk">
       <div class="emoji">💍</div>
-      <h3>WhatsApp par enquiry bhejein</h3>
+      <h3>Send an Enquiry on WhatsApp</h3>
       <p>Aapki details WhatsApp message mein taiyaar hongi. <strong>Enquiry tabhi humein milegi jab aap WhatsApp khulne ke baad Send dabayenge.</strong><br><br>
       Did the message fail to open? You can open WhatsApp again below:</p>
       <a id="retryWa" href="https://wa.me/919456596107" target="_blank" rel="noopener noreferrer" class="wa-btn">📲 Send Your Enquiry on WhatsApp</a>
@@ -288,7 +288,7 @@ function submitBooking(){
   var svcs=[...document.querySelectorAll('input[name="bk_svc"]:checked')].map(function(c){return c.value});
 
   var waMsg='💍 *PAHADIWEDDING — WEDDING ENQUIRY*\n\n'
-    +'*Naam:* '+nm+'\n'
+    +'*Name:* '+nm+'\n'
     +'*Phone:* '+ph+'\n'
     +(city?'*City:* '+city+'\n':'')
     +(date?'*Wedding Date:* '+date+'\n':'')
