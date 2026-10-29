@@ -40,10 +40,10 @@ window.fbAsyncInit = function() {
 function showConnected(){
   status('Facebook authorisation is connected for this browser test. This is not a PahadiWedding account session.');
   loginBtn.hidden = true; logoutBtn.hidden = false;
-  FB.api('/me', {fields:'id,name'}, function(user) {
+  FB.api('/me', {fields:'id,name,email'}, function(user) {
     if (user && !user.error) {
       profileEl.style.display = 'block';
-      profileEl.textContent = 'Signed in as ' + user.name + ' (Facebook ID: ' + user.id + ')';
+      profileEl.textContent = 'Signed in as ' + user.name + (user.email ? ' (' + user.email + ')' : '') + ' (Facebook ID: ' + user.id + ')';
     } else status('Facebook authorised, but profile could not be loaded. Check app permissions and settings.');
   });
 }
@@ -53,7 +53,7 @@ loginBtn.addEventListener('click', function(){
     loginBtn.disabled = false;
     if (response.authResponse) showConnected();
     else status('Login was cancelled or not authorised. Check app configuration and try again.');
-  }, {scope:'public_profile'});
+  }, {scope:'public_profile,email'});
 });
 logoutBtn.addEventListener('click', function(){
   FB.logout(function(){
