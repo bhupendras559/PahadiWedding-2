@@ -42,11 +42,11 @@ body{background:radial-gradient(circle at 8% 8%,#ead9c4 0,transparent 32%),linea
 const URL='https://evjzwhqheycsmvmjnclf.supabase.co';
 const ADMIN_EMAIL='bhupendras559@gmail.com';
 const KEY='sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ';
-const db=window.supabase.createClient(URL,KEY);
+const db=window.supabase.createClient(URL,KEY,{auth:{persistSession:false,autoRefreshToken:false,detectSessionInUrl:true}});
 const $=id=>document.getElementById(id);let user=null;let activeTab='leads';let cache={};
 function msg(id,text,type){const e=$(id);e.textContent=text;e.className='msg '+(type||'');}
 function esc(v){return String(v??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));}
-function showLogin(){user=null;$('loginPanel').classList.remove('hidden');$('recoveryPanel').classList.add('hidden');$('dashboard').classList.add('hidden');$('logout').classList.add('hidden');$('email').value=ADMIN_EMAIL;}
+window.addEventListener('pageshow',event=>{if(event.persisted){db.auth.signOut().finally(()=>{showLogin();$('password').value='';});}});\nfunction showLogin(){user=null;$('loginPanel').classList.remove('hidden');$('recoveryPanel').classList.add('hidden');$('dashboard').classList.add('hidden');$('logout').classList.add('hidden');$('email').value=ADMIN_EMAIL;}
 function showDashboard(u){user=u;$('loginPanel').classList.add('hidden');$('dashboard').classList.remove('hidden');$('logout').classList.remove('hidden');$('welcome').textContent='Signed in as '+(u.email||'authorized admin');loadAll();}
 async function isAdmin(u){if(!u||String(u.email||'').toLowerCase()!==ADMIN_EMAIL)return false;const {data,error}=await db.from('admin_users').select('user_id').eq('user_id',u.id).maybeSingle();return !error&&!!data;}
 async function guard(){const {data,error}=await db.auth.getUser();if(location.hash.includes('type=recovery')){if(error||!data.user||String(data.user.email||'').toLowerCase()!==ADMIN_EMAIL||!(await isAdmin(data.user))){await db.auth.signOut();showLogin();msg('loginMsg','This reset link is invalid or not authorized for the admin account. Request a new reset link.','err');return;}$('loginPanel').classList.add('hidden');$('dashboard').classList.add('hidden');$('recoveryPanel').classList.remove('hidden');$('logout').classList.add('hidden');return;}if(error||!data.user){showLogin();return;}if(await isAdmin(data.user)){showDashboard(data.user);}else{await db.auth.signOut();showLogin();msg('loginMsg','This account does not have administrator permission.','err');}}
