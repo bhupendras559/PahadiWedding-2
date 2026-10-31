@@ -261,7 +261,9 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
 
 </div><!-- /form-wrap -->
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const bookingDb=window.supabase.createClient('https://evjzwhqheycsmvmjnclf.supabase.co','sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ',{auth:{persistSession:false,autoRefreshToken:false}});
 var budgetValues=['₹1 Lakh','₹2 Lakh','₹3 Lakh','₹4 Lakh','₹5 Lakh','₹6 Lakh','₹7 Lakh','₹8 Lakh','₹9 Lakh','₹10 Lakh+'];
 
 // Prevent selecting past wedding dates in the browser date picker.
@@ -271,43 +273,50 @@ function updateBudget(v){
   document.getElementById('budgetVal').textContent=budgetValues[parseInt(v)-1];
 }
 
-function submitBooking(){
+async function submitBooking(){
   var nm=document.getElementById('bk_nm').value.trim();
   var ph=document.getElementById('bk_ph').value.trim();
-
+  var submitBtn=document.querySelector('#bookFrm .sub-btn');
   if(!nm){alert('Please enter your name.');document.getElementById('bk_nm').focus();return;}
-  if(!ph||ph.length!==10||isNaN(ph)){alert('Please enter a valid 10-digit WhatsApp number.');document.getElementById('bk_ph').focus();return;}
-
+  if(!/^[0-9]{10}$/.test(ph)){alert('Please enter a valid 10-digit WhatsApp number.');document.getElementById('bk_ph').focus();return;}
   var date=document.getElementById('bk_date').value;
   if(date){var chosen=new Date(date+'T00:00:00');var today=new Date();today.setHours(0,0,0,0);if(chosen<today){alert('Please select a future date.');document.getElementById('bk_date').focus();return;}}
   var loc=document.getElementById('bk_loc').value;
   var guests=document.getElementById('bk_guests').value;
-  var budget=budgetValues[parseInt(document.getElementById('bk_budget').value)-1];
+  var budget=budgetValues[parseInt(document.getElementById('bk_budget').value)-1]||'Not specified';
   var city=document.getElementById('bk_city').value.trim();
   var msg=document.getElementById('bk_msg').value.trim();
   var svcs=[...document.querySelectorAll('input[name="bk_svc"]:checked')].map(function(c){return c.value});
-
   var waMsg='💍 *PAHADIWEDDING — WEDDING ENQUIRY*\n\n'
-    +'*Name:* '+nm+'\n'
-    +'*Phone:* '+ph+'\n'
-    +(city?'*City:* '+city+'\n':'')
-    +(date?'*Wedding Date:* '+date+'\n':'')
-    +(loc?'*Location:* '+loc+'\n':'')
-    +(guests?'*Guests:* '+guests+'\n':'')
-    +'*Budget:* '+budget+'\n'
-    +(svcs.length?'*Services:* '+svcs.join(', ')+'\n':'')
-    +(msg?'*Message:* '+msg+'\n':'')
-    +'\n_Enquiry via PahadiWedding.in_';
-
+    +'*Name:* '+nm+'\n'+'*Phone:* '+ph+'\n'
+    +(city?'*City:* '+city+'\n':'')+(date?'*Wedding Date:* '+date+'\n':'')
+    +(loc?'*Location:* '+loc+'\n':'')+(guests?'*Guests:* '+guests+'\n':'')
+    +'*Budget:* '+budget+'\n'+(svcs.length?'*Services:* '+svcs.join(', ')+'\n':'')
+    +(msg?'*Message:* '+msg+'\n':'')+'\n_Enquiry via PahadiWedding.in_';
   var url='https://wa.me/919456596107?text='+encodeURIComponent(waMsg);
   document.getElementById('retryWa').href=url;
-  var waWindow=window.open(url,'_blank');
-  if(!waWindow){
-    alert('The WhatsApp message did not open. Allow browser pop-ups or use the WhatsApp button below. Your form details are still here.');
+  var waWindow=window.open('about:blank','_blank');
+  if(submitBtn){submitBtn.disabled=true;submitBtn.textContent='Saving enquiry…';}
+  var saved=false,saveError=null;
+  try{
+    const {error}=await bookingDb.from('wedding_enquiries').insert({
+      name:nm,phone:ph,city:city||null,wedding_date:date||null,
+      wedding_location:loc||null,guest_count:guests||null,budget:budget,
+      services:svcs,message:msg||null,source:'booking.html'
+    });
+    if(error)throw error;
+    saved=true;
+  }catch(err){saveError=err;console.error('Wedding enquiry save failed:',err);}
+  if(waWindow){waWindow.location.href=url;}
+  else{window.location.href=url;}
+  if(!saved){
+    alert('WhatsApp will open, but database saving failed. Please contact the admin if you need confirmation. '+(saveError&&saveError.message?saveError.message:''));
+    if(submitBtn){submitBtn.disabled=false;submitBtn.textContent='💍 Request a Free Consultation';}
     return;
   }
   document.getElementById('bookFrm').style.display='none';
   document.getElementById('bookOk').style.display='block';
+  document.querySelector('#bookOk p').innerHTML='Your enquiry details have been saved securely. WhatsApp will open with your message; please press Send there so our team receives it.';
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
