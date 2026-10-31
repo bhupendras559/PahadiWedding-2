@@ -103,5 +103,15 @@
         }
       ]
     }
+  ],
+  "rewrites": [
+    {
+      "source": "/sitemap.xml",
+      "destination": "/api/sitemap"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog.html?slug=:slug"
+    }
   ]
 }
