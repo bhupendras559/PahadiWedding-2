@@ -9,7 +9,7 @@
 <section class="panel"><h2>Approved vendors</h2><p class="muted">Enter the vendor's email address and send an invitation. The vendor sets their own password from the email link.</p><div id="vendors" class="grid">Loading…</div></section>
 <section class="panel"><h2>Account status</h2><div id="linked" class="scroll"></div></section></section></main>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>
-(()=>{'use strict';const URL='https://evjzwhqheycsmvmjnclf.supabase.co',KEY='sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ',ADMIN='bhupendras559@gmail.com';const db=supabase.createClient(URL,KEY);const $=id=>document.getElementById(id);let session=null;
+(async()=>{'use strict';const URL='https://evjzwhqheycsmvmjnclf.supabase.co',KEY='sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ',ADMIN='bhupendras559@gmail.com';const db=supabase.createClient(URL,KEY);const $=id=>document.getElementById(id);let session=null;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 function say(id,t,kind){$(id).className='msg '+(kind||'');$(id).textContent=t;}
 async function allowed(user){if(!user||String(user.email||'').toLowerCase()!==ADMIN)return false;const {data,error}=await db.from('admin_users').select('user_id').eq('user_id',user.id).maybeSingle();return !error&&!!data;}
