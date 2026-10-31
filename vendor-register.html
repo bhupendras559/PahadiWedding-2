@@ -114,7 +114,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
     </div>
 
     <!-- FORM -->
-    <div id="vregFrm">
+    <div id="vregAuth" style="display:none;text-align:center;padding:24px 8px"><h3 style="color:#7A1022;margin-bottom:10px">Vendor account required</h3><p style="color:#666;font-size:.85rem;line-height:1.6;margin-bottom:16px">New vendor registration ke liye pehle apna account banayein ya login karein. Aapki listing aapke account se securely link hogi.</p><a href="/vendor-login.html" style="display:inline-block;background:#7A1022;color:#fff;padding:12px 20px;border-radius:10px;text-decoration:none;font-weight:700">Create Account / Login</a></div>\n    <div id="vregFrm">
 
       <!-- Business Name -->
       <div class="fg">
@@ -261,7 +261,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
 <script>
 const PW_SUPABASE_URL='https://evjzwhqheycsmvmjnclf.supabase.co';
 const PW_SUPABASE_KEY='sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ';
-const pwDb=window.supabase.createClient(PW_SUPABASE_URL,PW_SUPABASE_KEY);
+const pwDb=window.supabase.createClient(PW_SUPABASE_URL,PW_SUPABASE_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}});
 function toggleAllUK(cb){
   document.querySelectorAll('input[name="vr_loc_cb"]').forEach(function(c){c.checked=cb.checked});
 }
@@ -291,7 +291,7 @@ async function submitVReg(){
   var desc=document.getElementById('vr_desc').value.trim();
   var selectedPlan=document.querySelector('input[name="vr_plan"]:checked');
   var plan=selectedPlan?selectedPlan.value:'free';
-  var record={business_name:nm,owner_name:own,phone:ph,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:plan,status:'pending'};
+  var record={business_name:nm,owner_name:own,phone:ph,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:plan,status:'pending',owner_id:user.id};
   btn.disabled=true;btn.textContent='Saving registration…';
   try{
     const registrationId=crypto.randomUUID();
