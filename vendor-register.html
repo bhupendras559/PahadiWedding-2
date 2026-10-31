@@ -110,7 +110,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
       <div class="emoji">🎉</div>
       <h3>Registration Submitted!</h3>
       <p>Your business registration has been submitted.<br>We may contact you if further information is required.</p>
-      <a href="https://wa.me/919456596107" class="wa-btn">📲 Continue on WhatsApp</a>
+      <a href="/vendor-login.html" class="wa-btn">Open Vendor Dashboard</a>
     </div>
 
     <!-- FORM -->
@@ -244,7 +244,7 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
       </div>
 
       <!-- Submit -->
-      <button class="sub-btn" onclick="submitVReg()">📲 Register via WhatsApp — FREE</button>
+      <button class="sub-btn" onclick="submitVReg()">Submit Vendor Registration</button>
       <p class="sub-note">Approval is subject to admin review • Your number is kept private from public listings • No hidden charges</p>
 
     </div><!-- /vregFrm -->
@@ -257,7 +257,9 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
   </div>
 </div>
 
-<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2">
+(async function requireVendorAccount(){const {data:{user},error}=await pwDb.auth.getUser();if(error||!user){document.getElementById('vregFrm').style.display='none';document.getElementById('vregAuth').style.display='block';}})();
+</script>
 <script>
 const PW_SUPABASE_URL='https://evjzwhqheycsmvmjnclf.supabase.co';
 const PW_SUPABASE_KEY='sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ';
@@ -270,6 +272,8 @@ function toggleCustomLoc(cb){
 }
 
 async function submitVReg(){
+  const {data:{user},error:authError}=await pwDb.auth.getUser();
+  if(authError||!user){document.getElementById('vregFrm').style.display='none';document.getElementById('vregAuth').style.display='block';return;}
   var btn=document.querySelector('.sub-btn');
   var nm=document.getElementById('vr_nm').value.trim();
   var own=document.getElementById('vr_own').value.trim();
@@ -277,7 +281,7 @@ async function submitVReg(){
   var pr=document.getElementById('vr_pr').value.trim();
   if(!nm){alert('Business ka naam zaroori hai!');document.getElementById('vr_nm').focus();return;}
   if(!own){alert('Malik ka naam zaroori hai!');document.getElementById('vr_own').focus();return;}
-  if(!/^\\d{10}$/.test(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
+  if(!/^[0-9]{10}$/.test(ph)){alert('10 digit WhatsApp number daalo!');document.getElementById('vr_ph').focus();return;}
   if(!pr){alert('Starting price zaroori hai!');document.getElementById('vr_pr').focus();return;}
   var cats=[...document.querySelectorAll('input[name="vr_cat_cb"]:checked')].map(function(c){return c.value});
   if(!cats.length){alert('Please select at least one category.');return;}
@@ -294,35 +298,26 @@ async function submitVReg(){
   var record={business_name:nm,owner_name:own,phone:ph,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:plan,status:'pending',owner_id:user.id};
   btn.disabled=true;btn.textContent='Saving registration…';
   try{
-    const registrationId=crypto.randomUUID();
-    const {error}=await pwDb.from('vendors').insert({...record,id:registrationId});
-    if(error) throw error;
-    const data={...record,id:registrationId};
-    var msg='🏪 *PAHADIWEDDING VENDOR REGISTRATION*\\n\\n'
-      +'*Registration ID:* '+data.id+'\\n'
-      +'*Business:* '+data.business_name+'\\n'
-      +'*Owner:* '+data.owner_name+'\\n'
-      +'*Phone:* '+data.phone+'\\n'
-      +'*Category:* '+data.category+'\\n'
-      +'*Location:* '+data.location+'\\n'
-      +'*Price:* '+data.price+'\\n'
-      +'*Experience:* '+(data.experience||'Not provided')+'\\n'
-      +(data.description?'*Service:* '+data.description+'\\n':'')
-      +'*Plan requested:* '+(data.plan==='premium'?'Premium (Rs 500/month)':'Free Plan')+'\\n'
-      +'*Database status:* PENDING ADMIN APPROVAL\\n\\n'
-      +'_The record has been saved for admin review._';
+    const {data:existing,error:lookupError}=await pwDb.from('vendors').select('id,status').eq('owner_id',user.id).maybeSingle();
+    if(lookupError) throw lookupError;
+    let savedId;
+    if(existing){
+      const {error}=await pwDb.from('vendors').update(record).eq('id',existing.id).eq('owner_id',user.id);
+      if(error) throw error;
+      savedId=existing.id;
+    }else{
+      savedId=crypto.randomUUID();
+      const {error}=await pwDb.from('vendors').insert({...record,id:savedId});
+      if(error) throw error;
+    }
     document.getElementById('vregFrm').style.display='none';
     document.getElementById('vregOk').style.display='block';
-    document.querySelector('#vregOk p').innerHTML='Your registration has been saved to the database. <strong>Registration ID:</strong> '+data.id+'<br>Status: <strong>Pending admin approval</strong>. Now send the review message via WhatsApp.';
-    var wa=document.querySelector('#vregOk .wa-btn');
-    wa.href='https://wa.me/919456596107?text='+encodeURIComponent(msg);
-    wa.textContent='📲 Send Saved Details on WhatsApp';
-    wa.target='_blank';wa.rel='noopener';
-    window.scrollTo({top:0,behavior:'smooth'});
+    document.querySelector('#vregOk p').innerHTML='Your registration has been saved successfully. <strong>Registration ID:</strong> '+savedId+'<br>Status: <strong>Pending admin approval</strong>. You can manage your business profile from your Vendor Dashboard.';
+        window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
     console.error('Vendor registration save failed:',err);
     alert('Registration could not be saved, so database storage is not confirmed. Please try again or contact the admin on WhatsApp. Error: '+(err.message||'Unknown error'));
-  }finally{btn.disabled=false;btn.textContent='📲 Register via WhatsApp — FREE';}
+  }finally{btn.disabled=false;btn.textContent='Submit Vendor Registration';}
 }
 </script>
 </body>
