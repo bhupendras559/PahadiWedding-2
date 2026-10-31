@@ -295,7 +295,7 @@ async function submitVReg(){
   var desc=document.getElementById('vr_desc').value.trim();
   var selectedPlan=document.querySelector('input[name="vr_plan"]:checked');
   var plan=selectedPlan?selectedPlan.value:'free';
-  var record={business_name:nm,owner_name:own,phone:ph,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:plan,status:'pending',owner_id:user.id};
+  var record={business_name:nm,owner_name:own,phone:ph,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:'free',premium_status:plan==='premium'?'requested':'not_requested',premium_requested_at:plan==='premium'?new Date().toISOString():null,status:'pending',owner_id:user.id};
   btn.disabled=true;btn.textContent='Saving registration…';
   try{
     const {data:existing,error:lookupError}=await pwDb.from('vendors').select('id,status').eq('owner_id',user.id).maybeSingle();
@@ -312,7 +312,7 @@ async function submitVReg(){
     }
     document.getElementById('vregFrm').style.display='none';
     document.getElementById('vregOk').style.display='block';
-    document.querySelector('#vregOk p').innerHTML='Your registration has been saved successfully. <strong>Registration ID:</strong> '+savedId+'<br>Status: <strong>Pending admin approval</strong>. You can manage your business profile from your Vendor Dashboard.';
+    document.querySelector('#vregOk p').innerHTML='Your registration has been saved successfully. <strong>Registration ID:</strong> '+savedId+'<br>Status: <strong>Pending admin approval</strong>. Premium selection, if requested, awaits admin payment verification and activation. You can manage your business profile from your Vendor Dashboard.';
         window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
     console.error('Vendor registration save failed:',err);
