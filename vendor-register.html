@@ -158,6 +158,10 @@ body{font-family:'Hind',sans-serif;background:linear-gradient(135deg,#1a1a2e,#16
         <label>📞 WhatsApp Number *</label>
         <input id="vr_ph" type="tel" maxlength="10" placeholder="10 digit number...">
       </div>
+      <div class="fg">
+        <label>✉️ Business Contact Email (optional)</label>
+        <input id="vr_email" type="email" maxlength="254" placeholder="Business ka email (agar alag ho)">
+      </div>
 
       <!-- Location -->
       <div class="fg">
@@ -276,6 +280,8 @@ async function submitVReg(){
   var nm=document.getElementById('vr_nm').value.trim();
   var own=document.getElementById('vr_own').value.trim();
   var ph=document.getElementById('vr_ph').value.trim();
+  var contactEmail=document.getElementById('vr_email').value.trim().toLowerCase();
+  if(contactEmail&&!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(contactEmail)){alert('Valid business contact email daalein.');document.getElementById('vr_email').focus();return;}
   var pr=document.getElementById('vr_pr').value.trim();
   if(!nm){alert('Business ka naam zaroori hai!');document.getElementById('vr_nm').focus();return;}
   if(!own){alert('Malik ka naam zaroori hai!');document.getElementById('vr_own').focus();return;}
@@ -293,14 +299,14 @@ async function submitVReg(){
   var desc=document.getElementById('vr_desc').value.trim();
   var selectedPlan=document.querySelector('input[name="vr_plan"]:checked');
   var plan=selectedPlan?selectedPlan.value:'free';
-  var record={business_name:nm,owner_name:own,phone:ph,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:'free',premium_status:plan==='premium'?'requested':'not_requested',premium_requested_at:plan==='premium'?new Date().toISOString():null,status:'pending',owner_id:user.id};
+  var record={business_name:nm,owner_name:own,phone:ph,email:contactEmail||null,category:cats.join(', '),location:locs.join(', '),price:pr,experience:exp,description:desc||null,plan:'free',premium_status:plan==='premium'?'requested':'not_requested',premium_requested_at:plan==='premium'?new Date().toISOString():null,status:'pending',owner_id:user.id};
   btn.disabled=true;btn.textContent='Saving registration…';
   try{
     const {data:existing,error:lookupError}=await pwDb.from('vendors').select('id,status').eq('owner_id',user.id).maybeSingle();
     if(lookupError) throw lookupError;
     let savedId;
     if(existing){
-      const {business_name,owner_name,phone,category,location,price,experience,description}=record;
+      const {business_name,owner_name,phone,email,category,location,price,experience,description}=record;
       const {error}=await pwDb.from('vendors').update({business_name,owner_name,phone,category,location,price,experience,description}).eq('id',existing.id).eq('owner_id',user.id);
       if(error) throw error;
       savedId=existing.id;
@@ -311,7 +317,7 @@ async function submitVReg(){
     }
     document.getElementById('vregFrm').style.display='none';
     document.getElementById('vregOk').style.display='block';
-    document.querySelector('#vregOk p').innerHTML='Your registration has been saved successfully. <strong>Registration ID:</strong> '+savedId+'<br>Status: <strong>Pending admin approval</strong>. Please share your registered email ID and 3–5 clear original business photos with PahadiWedding.in on WhatsApp.';const adminMsg='New PahadiWedding.in vendor registration received%0ARegistration ID: '+savedId+'%0ABusiness: '+nm+'%0AOwner: '+own+'%0AWhatsApp: '+ph+'%0ACategory: '+cats.join(', ')+'%0ALocation: '+locs.join(', ')+'%0AStarting price: '+pr+'%0AExperience: '+exp+'%0APlan requested: '+plan+'%0AStatus: Pending approval';const adminLink='https://wa.me/919456596107?text='+encodeURIComponent(adminMsg);const oldLink=document.getElementById('vregAdminWhatsApp');if(oldLink)oldLink.remove();const notify=document.createElement('a');notify.id='vregAdminWhatsApp';notify.href=adminLink;notify.target='_blank';notify.rel='noopener';notify.className='wa-btn';notify.style.marginTop='12px';notify.textContent='Send registration details to PahadiWedding WhatsApp';document.getElementById('vregOk').appendChild(notify);
+    document.querySelector('#vregOk p').innerHTML='Your registration has been saved successfully. <strong>Registration ID:</strong> '+savedId+'<br>Status: <strong>Pending admin approval</strong>. Please share your business contact email (if applicable) and 3–5 clear original business photos with PahadiWedding.in on WhatsApp.';const adminMsg='New PahadiWedding.in vendor registration received%0ARegistration ID: '+savedId+'%0ABusiness: '+nm+'%0AOwner: '+own+'%0AWhatsApp: '+ph+'%0ABusiness email: '+(contactEmail||'Not provided')+'%0ACategory: '+cats.join(', ')+'%0ALocation: '+locs.join(', ')+'%0AStarting price: '+pr+'%0AExperience: '+exp+'%0APlan requested: '+plan+'%0AStatus: Pending approval';const adminLink='https://wa.me/919456596107?text='+encodeURIComponent(adminMsg);const oldLink=document.getElementById('vregAdminWhatsApp');if(oldLink)oldLink.remove();const notify=document.createElement('a');notify.id='vregAdminWhatsApp';notify.href=adminLink;notify.target='_blank';notify.rel='noopener';notify.className='wa-btn';notify.style.marginTop='12px';notify.textContent='Send registration details to PahadiWedding WhatsApp';document.getElementById('vregOk').appendChild(notify);
         window.scrollTo({top:0,behavior:'smooth'});
   }catch(err){
     console.error('Vendor registration save failed:',err);
