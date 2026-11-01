@@ -314,6 +314,7 @@ async function submitBooking(){
     });
     if(error)throw error;
     saved=true;
+    if(typeof gtag==='function')gtag('event','generate_lead',{lead_type:'wedding_planning',form_name:'wedding_booking',page_location:location.pathname});
   }catch(err){saveError=err;console.error('Wedding enquiry save failed:',err);}
   if(waWindow){waWindow.location.href=url;}
   else{window.location.href=url;}
