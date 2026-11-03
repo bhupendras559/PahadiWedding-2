@@ -128,6 +128,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
   <div class="urgency">
     <p>Share your wedding date and requirements to explore your planning options.</p>
   </div>
+  <div style="text-align:center;margin:0 0 14px"><a href="https://wa.me/919456596107?text=Namaste%2C%20mujhe%20Uttarakhand%20wedding%20planning%20ke%20liye%20jankari%20chahiye." target="_blank" rel="noopener noreferrer" style="display:block;background:#25D366;color:#fff;text-decoration:none;padding:13px 16px;border-radius:12px;font-weight:700;font-size:.9rem">💬 Form भरना नहीं चाहते? सीधे WhatsApp करें</a><p style="font-size:.68rem;color:#888;margin-top:6px">Aap seedha apni wedding date, location aur budget WhatsApp par bata sakte hain.</p></div>
 
   <div class="form-card">
     <p class="form-title">📋 Free Wedding Consultation</p>
@@ -329,5 +330,6 @@ async function submitBooking(){
   window.scrollTo({top:0,behavior:'smooth'});
 }
 </script>
+<script>document.addEventListener("click",function(e){const a=e.target.closest("a[href]");if(!a||typeof gtag!=="function")return;const u=a.getAttribute("href")||"";if(u.includes("wa.me")||u.includes("whatsapp.com"))gtag("event","contact_click",{contact_method:"whatsapp",link_url:u,page_location:location.pathname});else if(u.startsWith("tel:"))gtag("event","contact_click",{contact_method:"phone",link_url:u,page_location:location.pathname});});</script>
 </body>
 </html>
