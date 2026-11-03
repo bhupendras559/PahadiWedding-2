@@ -187,7 +187,7 @@
    const {error}=await client.from('feedback').insert({name,rating,review,location:location||null,status:'pending'});
    if(error)throw error;
    form.reset();status.textContent='Thank you! Aapka feedback submit ho gaya hai. Admin approval ke baad website par dikhega.';
-   if(typeof gtag==='function')gtag('event','feedback_submit',{page_location:location.pathname,feedback_rating:rating});
+   if(typeof gtag==='function')gtag('event','feedback_submit',{page_location:window.location.pathname,feedback_rating:rating});
   }catch(err){status.textContent='Feedback submit nahi ho paya. Kripya dobara try karein.';console.warn('Feedback submission failed',err);}
   finally{btn.disabled=false;btn.textContent='Submit Feedback ↗';}
  });
