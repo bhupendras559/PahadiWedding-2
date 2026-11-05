@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<title>Facebook Login Test | PahadiWedding.in</title>
+<style>
+:root{color-scheme:light;--wine:#65172d;--cream:#fbf7f0;--ink:#261d20}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;display:grid;place-items:center;padding:24px;background:var(--cream);color:var(--ink);font:16px/1.55 system-ui,-apple-system,sans-serif}
+main{width:min(100%,520px);background:#fff;border:1px solid #eadfd6;border-radius:20px;padding:28px;box-shadow:0 14px 40px #3d102012}
+h1{margin:0 0 8px;color:var(--wine);font-size:1.7rem}p{color:#62565a}.fb{width:100%;border:0;border-radius:10px;padding:14px 18px;background:#1877f2;color:#fff;font-weight:700;font-size:1rem;cursor:pointer}.fb:disabled{opacity:.6;cursor:wait}.secondary{background:#eee;color:#222;margin-top:10px}.status{padding:12px;border-radius:10px;background:#f5f0eb;margin-top:16px;overflow-wrap:anywhere}.profile{display:none;margin-top:16px;padding:14px;border:1px solid #eadfd6;border-radius:12px}.small{font-size:.86rem}.back{display:inline-block;margin-top:16px;color:var(--wine)}
+</style>
+</head>
+<body>
+<main>
+<h1>PahadiWedding.in</h1>
+<p>Facebook Login integration test</p>
+<p class="small"><strong>Important:</strong> This is a test page only. It does not create a PahadiWedding account or a secure website session. Do not use it as production authentication until a server-side session flow is implemented and tested.</p>
+<button class="fb" id="login" type="button">Continue with Facebook</button>
+<button class="fb secondary" id="logout" type="button" hidden>Log out of this test</button>
+<div class="status" id="status" role="status">Checking Facebook SDK…</div>
+<section class="profile" id="profile" aria-live="polite"></section>
+<a class="back" href="/">← Back to PahadiWedding.in</a>
+</main>
+<script>
+const APP_ID = '1760019691952810';
+const statusEl = document.getElementById('status');
+const loginBtn = document.getElementById('login');
+const logoutBtn = document.getElementById('logout');
+const profileEl = document.getElementById('profile');
+let sdkReady = false;
+let loginStarted = false;
+function status(message){ statusEl.textContent = message; }
+function refreshLoginStatus(){
+  if (!sdkReady || !window.FB) return;
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') showConnected();
+    else if (loginStarted) {
+      loginBtn.disabled = false;
+      status('Facebook did not return an authorised session to this page. Reopen this test in the full Chrome browser (not an in-app tab) and try once more.');
+    }
+  }, true);
+}
+window.fbAsyncInit = function() {
+  FB.init({appId: APP_ID, cookie: true, xfbml: false, version: 'v26.0'});
+  sdkReady = true;
+  FB.getLoginStatus(function(response) {
+    if (response.status === 'connected') showConnected();
+    else status('SDK loaded. Tap “Continue with Facebook” to test sign-in.');
+  }, true);
+};
+function showConnected(){
+  loginStarted = false;
+  loginBtn.disabled = false;
+  status('SUCCESS: Facebook authorisation is connected for this browser test. This is not a PahadiWedding account session.');
+  loginBtn.hidden = true; logoutBtn.hidden = false;
+  FB.api('/me', {fields:'id,name,email'}, function(user) {
+    if (user && !user.error) {
+      profileEl.style.display = 'block';
+      profileEl.textContent = 'Signed in as ' + user.name + (user.email ? ' (' + user.email + ')' : '') + ' (Facebook ID: ' + user.id + ')';
+    } else status('Facebook authorised, but profile could not be loaded. Check app permissions and settings.');
+  });
+}
+loginBtn.addEventListener('click', function(){
+  if (!sdkReady) { status('Facebook SDK is still loading. Wait a moment and try again.'); return; }
+  loginStarted = true;
+  loginBtn.disabled = true;
+  status('Waiting for Facebook authorisation… If Facebook opens in another tab, return to this tab after approving.');
+  FB.login(function(response){
+    loginBtn.disabled = false;
+    if (response && response.authResponse) showConnected();
+    else {
+      status('Facebook did not return an authorised session. Checking login status again…');
+      refreshLoginStatus();
+    }
+  }, {scope:'public_profile,email'});
+});
+window.addEventListener('focus', refreshLoginStatus);
+document.addEventListener('visibilitychange', function(){
+  if (document.visibilityState === 'visible') refreshLoginStatus();
+});
+logoutBtn.addEventListener('click', function(){
+  FB.logout(function(){
+    loginStarted = false;
+    profileEl.style.display = 'none'; loginBtn.hidden = false; logoutBtn.hidden = true;
+    status('Logged out of the Facebook test. No PahadiWedding session was created.');
+  });
+});
+(function(d,s,id){var js,fjs=d.getElementsByTagName(s)[0];if(d.getElementById(id))return;js=d.createElement(s);js.id=id;js.src='https://connect.facebook.net/en_US/sdk.js';js.async=true;js.defer=true;fjs.parentNode.insertBefore(js,fjs);})(document,'script','facebook-jssdk');
+</script>
+</body>
+</html>
