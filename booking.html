@@ -293,6 +293,8 @@ async function submitBooking(){
   var loc=document.getElementById('bk_loc').value;
   var guests=document.getElementById('bk_guests').value;
   var budget=budgetValues[parseInt(document.getElementById('bk_budget').value)-1]||'Not specified';
+  var sourcePage=new URLSearchParams(window.location.search).get('source')||document.referrer||'direct';
+  if(typeof gtag==='function')gtag('event','wedding_enquiry_start',{form_name:'wedding_booking',source_page:sourcePage,page_location:location.pathname});
   var city=document.getElementById('bk_city').value.trim();
   var msg=document.getElementById('bk_msg').value.trim();
   var svcs=[...document.querySelectorAll('input[name="bk_svc"]:checked')].map(function(c){return c.value});
@@ -311,11 +313,11 @@ async function submitBooking(){
     const {error}=await bookingDb.from('wedding_enquiries').insert({
       name:nm,phone:ph,city:city||null,wedding_date:date||null,
       wedding_location:loc||null,guest_count:guests||null,budget:budget,
-      services:svcs,message:msg||null,source:'booking.html'
+      services:svcs,message:msg||null,source:'booking.html | '+String(sourcePage).slice(0,180)
     });
     if(error)throw error;
     saved=true;
-    if(typeof gtag==='function')gtag('event','generate_lead',{lead_type:'wedding_planning',form_name:'wedding_booking',page_location:location.pathname});
+    if(typeof gtag==='function'){gtag('event','generate_lead',{lead_type:'wedding_planning',form_name:'wedding_booking',page_location:location.pathname,source_page:sourcePage,services:svcs.join(',')});gtag('event','wedding_enquiry_saved',{form_name:'wedding_booking'});}
   }catch(err){saveError=err;console.error('Wedding enquiry save failed:',err);}
   if(waWindow){waWindow.location.href=url;}
   else{window.location.href=url;}
