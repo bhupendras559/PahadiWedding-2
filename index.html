@@ -195,24 +195,6 @@
 </div><div class="copyright">© <span id="year">2026</span> PahadiWedding.in · Please confirm vendor availability, prices and services directly before booking.</div></div></footer>
 <nav class="mobilebar" aria-label="Quick navigation"><a href="/"><span>⌂</span>Home</a><a href="#services"><span>✿</span>Services</a><a href="booking.html"><span>▣</span>Plan</a><a href="/blog.html"><span>✎</span>Stories</a><a href="venues.html"><span>⌂</span>Venues</a><a href="vendor-register.html"><span>♧</span>Vendor</a></nav>
 <script>document.getElementById('year').textContent=new Date().getFullYear();</script>
-<script>
-(async function(){
- const target=document.getElementById("homeLatestBlogs");
- if(!target||!window.supabase)return;
- const client=window.supabase.createClient("https://evjzwhqheycsmvmjnclf.supabase.co","sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ",{auth:{persistSession:false,autoRefreshToken:false}});
- const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
- try{
-  const {data,error}=await client.from("blog_posts").select("slug,title,excerpt,meta_description,seo_description,category,published_at,featured_image").eq("status","published").order("published_at",{ascending:false}).limit(6);
-  if(error)throw error;
-  if(!data||!data.length){target.innerHTML='<article class="service"><div class="body"><p>नए लेख जल्द यहाँ दिखाई देंगे।</p><a class="more" href="/blog.html">सभी guides देखें →</a></div></article>';return;}
-  target.innerHTML=data.map(p=>{
-   const img=p.featured_image&&p.featured_image.startsWith("https://")?'<div class="photo" style="background-image:url(&quot;'+esc(p.featured_image)+'&quot;);height:190px" role="img" aria-label="'+esc(p.title)+'"></div>':"";
-   const desc=p.excerpt||p.meta_description||p.seo_description||"Uttarakhand wedding planning ke liye practical guide.";
-   return '<article class="service">'+img+'<div class="body"><div class="kicker">'+esc(p.category||"Wedding Guide")+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(desc)+'</p><a class="more" href="/blog.html?slug='+encodeURIComponent(p.slug)+'">पूरी कहानी पढ़ें →</a></div></article>';
-  }).join("");
- }catch(err){target.innerHTML='<article class="service"><div class="body"><p>नए लेख अभी लोड नहीं हो पाए।</p><a class="more" href="/blog.html">सभी wedding guides खोलें →</a></div></article>';console.warn("Latest blog section failed",err);}
-})();
-</script>
 
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script><script>(async()=>{try{const s=window.supabase.createClient('https://evjzwhqheycsmvmjnclf.supabase.co','sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ');const {data}=await s.from('destination_images').select('slug,image_url');(data||[]).forEach(x=>{const a=document.querySelector('a[href="'+x.slug+'-wedding-guide.html"]');if(a)a.style.setProperty('--photo','url("'+x.image_url+'")');});}catch(e){console.warn('Destination photos not loaded')}})();</script><script>document.addEventListener("click",function(e){const a=e.target.closest("a[href]");if(!a||typeof gtag!=="function")return;const u=a.getAttribute("href")||"";if(u.includes("booking.html"))gtag("event","booking_cta_click",{link_url:u,page_location:location.pathname});else if(u.includes("wa.me")||u.includes("whatsapp.com"))gtag("event","contact_click",{contact_method:"whatsapp",link_url:u,page_location:location.pathname});else if(u.startsWith("tel:"))gtag("event","contact_click",{contact_method:"phone",link_url:u,page_location:location.pathname});});</script>
 <script>
@@ -272,6 +254,25 @@
   if(!data||!data.length){grid.innerHTML='<div class="home-gallery-empty">Gallery mein photos jald hi dikhengi. Aap bhi apni pahadi wedding ki photos share kar sakte hain.</div>';return;}
   grid.innerHTML=data.map((p,i)=>'<figure class="home-gallery-card"><a href="/gallery.html" aria-label="Explore Pahadi wedding gallery"><img src="'+String(p.public_url||'').replace(/&/g,'&amp;').replace(/"/g,'&quot;')+'" alt="'+String(p.caption||p.category||'Pahadi wedding celebration').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))+'" loading="lazy" '+(i===0?'fetchpriority="low"':'')+'></a><figcaption>'+String(p.caption||p.category||'Pahadi Wedding Moment').replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]))+(p.location?' · '+String(p.location).replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch])):'')+'</figcaption></figure>').join('');
  }catch(err){grid.innerHTML='<div class="home-gallery-empty">Gallery photos abhi load nahi ho pa rahi hain. Full gallery kholkar dobara try karein.</div>';console.warn('Homepage gallery preview failed',err);}
+})();
+</script>
+
+<script>
+(async function(){
+ const target=document.getElementById("homeLatestBlogs");
+ if(!target||!window.supabase)return;
+ const client=window.supabase.createClient("https://evjzwhqheycsmvmjnclf.supabase.co","sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ",{auth:{persistSession:false,autoRefreshToken:false}});
+ const esc=v=>String(v??"").replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+ try{
+  const {data,error}=await client.from("blog_posts").select("slug,title,excerpt,meta_description,seo_description,category,published_at,featured_image").eq("status","published").order("published_at",{ascending:false}).limit(6);
+  if(error)throw error;
+  if(!data||!data.length){target.innerHTML='<article class="service"><div class="body"><p>नए लेख जल्द यहाँ दिखाई देंगे।</p><a class="more" href="/blog.html">सभी guides देखें →</a></div></article>';return;}
+  target.innerHTML=data.map(p=>{
+   const img=p.featured_image&&p.featured_image.startsWith("https://")?'<div class="photo" style="background-image:url(&quot;'+esc(p.featured_image)+'&quot;);height:190px" role="img" aria-label="'+esc(p.title)+'"></div>':"";
+   const desc=p.excerpt||p.meta_description||p.seo_description||"Uttarakhand wedding planning ke liye practical guide.";
+   return '<article class="service">'+img+'<div class="body"><div class="kicker">'+esc(p.category||"Wedding Guide")+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(desc)+'</p><a class="more" href="/blog.html?slug='+encodeURIComponent(p.slug)+'">पूरी कहानी पढ़ें →</a></div></article>';
+  }).join("");
+ }catch(err){target.innerHTML='<article class="service"><div class="body"><p>नए लेख अभी लोड नहीं हो पाए।</p><a class="more" href="/blog.html">सभी wedding guides खोलें →</a></div></article>';console.warn("Latest blog section failed",err);}
 })();
 </script>
 </body></html>
