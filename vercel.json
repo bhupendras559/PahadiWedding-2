@@ -114,6 +114,10 @@
     {
       "source": "/blog/uttarakhand-village-wedding-elderly-guest-accessibility",
       "destination": "/blog/uttarakhand-village-wedding-elderly-guest-accessibility/index.html"
+    },
+    {
+      "source": "/blog/:slug",
+      "destination": "/blog.html?slug=:slug"
     }
   ],
   "headers": [
