@@ -220,7 +220,7 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
         <div class="cb-box">
           <div class="cb-grid">
             <label class="cb-item"><input type="checkbox" name="bk_svc" value="Decoration"><span>Decoration</span></label>
-            <label class="cb-item"><input type="checkbox" name="bk_svc" value="Catering"><span>Catering</span></label>
+            <label class="cb-item"><input id="bk_svc_catering" type="checkbox" name="bk_svc" value="Catering" onchange="toggleCateringDetails()"><span>Catering</span></label>
             <label class="cb-item"><input type="checkbox" name="bk_svc" value="Photography"><span>Photography</span></label>
             <label class="cb-item"><input type="checkbox" name="bk_svc" value="DJ & Band"><span>DJ & Band</span></label>
             <label class="cb-item"><input type="checkbox" name="bk_svc" value="Makeup"><span>Makeup</span></label>
@@ -231,6 +231,12 @@ input[type=range]{width:100%;accent-color:var(--r);height:6px;cursor:pointer}
             <label class="cb-item"><input type="checkbox" name="bk_svc" value="All Services"><span>All Services</span></label>
           </div>
         </div>
+      </div>
+
+      <!-- CATERING DETAILS: shown only when Catering is selected -->
+      <div class="fg" id="bk_catering_wrap" style="display:none">
+        <label>🍽️ खाने और Catering के लिए आपकी क्या जरूरत है? <span style="font-size:.63rem;color:#aaa;font-weight:400">(Optional)</span></label>
+        <textarea id="bk_catering_need" rows="3" placeholder="जैसे: कितने मेहमानों का खाना, नाश्ता/दोपहर/रात का भोजन, Kumaoni-Garhwali menu या कोई खास dietary जरूरत..."></textarea>
       </div>
 
       <!-- MESSAGE -->
@@ -282,6 +288,13 @@ function updateBudget(v){
   document.getElementById('budgetVal').textContent=budgetValues[parseInt(v)-1];
 }
 
+function toggleCateringDetails(){
+  var selected=document.getElementById('bk_svc_catering').checked;
+  var wrap=document.getElementById('bk_catering_wrap');
+  wrap.style.display=selected?'block':'none';
+  if(!selected) document.getElementById('bk_catering_need').value='';
+}
+
 async function submitBooking(){
   var nm=document.getElementById('bk_nm').value.trim();
   var ph=document.getElementById('bk_ph').value.trim();
@@ -297,12 +310,15 @@ async function submitBooking(){
   if(typeof gtag==='function')gtag('event','wedding_enquiry_start',{form_name:'wedding_booking',source_page:sourcePage,page_location:location.pathname});
   var city=document.getElementById('bk_city').value.trim();
   var msg=document.getElementById('bk_msg').value.trim();
+  var cateringNeed=document.getElementById('bk_catering_need').value.trim();
   var svcs=[...document.querySelectorAll('input[name="bk_svc"]:checked')].map(function(c){return c.value});
+  var enquiryMessage=[msg,cateringNeed&&svcs.includes('Catering')?'Catering requirements: '+cateringNeed:''].filter(Boolean).join('\n\n');
   var waMsg='💍 *PAHADIWEDDING — WEDDING ENQUIRY*\n\n'
     +'*Name:* '+nm+'\n'+'*Phone:* '+ph+'\n'
     +(city?'*City:* '+city+'\n':'')+(date?'*Wedding Date:* '+date+'\n':'')
     +(loc?'*Location:* '+loc+'\n':'')+(guests?'*Guests:* '+guests+'\n':'')
     +'*Budget:* '+budget+'\n'+(svcs.length?'*Services:* '+svcs.join(', ')+'\n':'')
+    +(cateringNeed&&svcs.includes('Catering')?'*Catering requirements:* '+cateringNeed+'\n':'')
     +(msg?'*Message:* '+msg+'\n':'')+'\n_Enquiry via PahadiWedding.in_';
   var url='https://wa.me/919456596107?text='+encodeURIComponent(waMsg);
   document.getElementById('retryWa').href=url;
@@ -313,7 +329,7 @@ async function submitBooking(){
     const {error}=await bookingDb.from('wedding_enquiries').insert({
       name:nm,phone:ph,city:city||null,wedding_date:date||null,
       wedding_location:loc||null,guest_count:guests||null,budget:budget,
-      services:svcs,message:msg||null,source:'booking.html | '+String(sourcePage).slice(0,180)
+      services:svcs,message:enquiryMessage||null,source:'booking.html | '+String(sourcePage).slice(0,180)
     });
     if(error)throw error;
     saved=true;
