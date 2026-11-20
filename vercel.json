@@ -80,6 +80,16 @@
       "source": "/two-villages.html",
       "destination": "/blog/village-wedding-uttarakhand-planning-guide",
       "permanent": true
+    },
+    {
+      "source": "/blog/how-to-choose-wedding-photographer-uttarakhand",
+      "destination": "/blog/choose-wedding-photographer-uttarakhand",
+      "permanent": true
+    },
+    {
+      "source": "/blog/pahadi-wedding-traditions-kumaon-ceremonies",
+      "destination": "/blog/kumaoni-wedding-rituals-traditions",
+      "permanent": true
     }
   ],
   "rewrites": [
