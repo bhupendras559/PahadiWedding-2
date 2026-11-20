@@ -270,7 +270,7 @@
   target.innerHTML=data.map(p=>{
    const img=p.featured_image&&p.featured_image.startsWith("https://")?'<div class="photo" style="background-image:url(&quot;'+esc(p.featured_image)+'&quot;);height:190px" role="img" aria-label="'+esc(p.title)+'"></div>':"";
    const desc=p.excerpt||p.meta_description||p.seo_description||"Uttarakhand wedding planning ke liye practical guide.";
-   return '<article class="service">'+img+'<div class="body"><div class="kicker">'+esc(p.category||"Wedding Guide")+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(desc)+'</p><a class="more" href="/blog.html?slug='+encodeURIComponent(p.slug)+'">पूरी कहानी पढ़ें →</a></div></article>';
+   return '<article class="service">'+img+'<div class="body"><div class="kicker">'+esc(p.category||"Wedding Guide")+'</div><h3>'+esc(p.title)+'</h3><p>'+esc(desc)+'</p><a class="more" href="/blog/'+encodeURIComponent(p.slug)+'">पूरी कहानी पढ़ें →</a></div></article>';
   }).join("");
  }catch(err){target.innerHTML='<article class="service"><div class="body"><p>नए लेख अभी लोड नहीं हो पाए।</p><a class="more" href="/blog.html">सभी wedding guides खोलें →</a></div></article>';console.warn("Latest blog section failed",err);}
 })();
