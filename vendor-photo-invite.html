@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="hi">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex,nofollow">
+<meta name="referrer" content="no-referrer">
+<title>Vendor Photo Upload | PahadiWedding.in</title>
+<style>
+:root{--wine:#651126;--gold:#c9a45a;--ink:#2d2526;--muted:#75696b;--line:#eadfd7;--paper:#fffdf9;--green:#1f7a4d}
+*{box-sizing:border-box}body{margin:0;background:linear-gradient(145deg,#f8f1e8,#f2e7e1);color:var(--ink);font:16px/1.55 system-ui,-apple-system,sans-serif;min-height:100vh}.shell{max-width:680px;margin:auto;padding:22px 14px 48px}.brand{font:700 1.35rem Georgia,serif;color:var(--wine);text-decoration:none}.card{background:var(--paper);border:1px solid var(--line);border-radius:18px;padding:clamp(18px,4vw,28px);margin-top:20px;box-shadow:0 15px 40px #4b20200d}.eyebrow{font-size:.72rem;letter-spacing:.12em;font-weight:800;color:var(--gold)}h1{font:700 clamp(1.6rem,5vw,2rem) Georgia,serif;margin:6px 0 8px;color:var(--wine)}h2{font-size:1.05rem;margin:18px 0 8px}p{color:var(--muted)}.vendor{padding:14px;border:1px solid #e8d7bd;border-radius:12px;background:#faf5ec;margin:16px 0}.vendor strong{display:block;font-size:1.1rem;color:var(--wine)}.hint{font-size:.88rem}.notice{padding:12px;border-radius:10px;background:#f3eee6;border:1px solid var(--line);font-size:.88rem;margin:14px 0}label{display:block;font-weight:700;margin:14px 0 6px}input[type=file]{width:100%;padding:12px;background:white;border:1px solid var(--line);border-radius:10px;font:inherit}input[type=checkbox]{width:18px;height:18px;vertical-align:middle;margin-right:8px}button{border:0;border-radius:10px;background:var(--wine);color:white;padding:13px 18px;font:inherit;font-weight:750;cursor:pointer;width:100%;margin-top:14px}button:disabled{opacity:.55;cursor:not-allowed}.status{padding:12px;border-radius:10px;background:#f5f0ea;color:var(--ink);white-space:pre-wrap;overflow-wrap:anywhere;margin-top:14px}.status.ok{background:#eaf6ee;color:#185b36}.status.err{background:#fff0ef;color:#962d2d}.hidden{display:none!important}.foot{text-align:center;color:var(--muted);font-size:.82rem;margin-top:20px}.foot a{color:var(--wine)}.file-list{font-size:.86rem;color:var(--muted);margin-top:8px;overflow-wrap:anywhere}
+</style>
+</head>
+<body>
+<main class="shell">
+<a class="brand" href="/">🏔️ PahadiWedding.in</a>
+<section class="card">
+<div class="eyebrow">SECURE VENDOR PHOTO UPLOAD</div>
+<h1>Apne business ki photos bhejein</h1>
+<p class="hint">Aapko PahadiWedding ki taraf se personal upload link mila hai. Login ya naya account banane ki zaroorat nahi hai.</p>
+<div id="vendorCard" class="vendor hidden"><strong id="vendorName"></strong><span id="vendorMeta" class="hint"></span></div>
+<div class="notice">🔒 Aapki photos pehle private review mein rahengi. Admin approval ke baad hi public vendor profile par dikhengi. Sirf wahi photos bhejein jinhe use karne ka haq ya permission aapke paas hai.</div>
+<div id="uploadPanel" class="hidden">
+<p id="limitText" class="hint"></p>
+<form id="uploadForm">
+<label for="photos">Business / wedding work photos (1–5 ek baar mein)</label>
+<input id="photos" type="file" accept="image/jpeg,image/png,image/webp" multiple required>
+<div id="fileList" class="file-list">JPG, PNG ya WebP · har photo maximum 5 MB</div>
+<label><input id="consent" type="checkbox" required> Main confirm karta/karti hoon ki in photos ko PahadiWedding par dikhane ki permission mere paas hai.</label>
+<button id="uploadButton" type="submit">Photos admin review ke liye bhejein</button>
+</form>
+</div>
+<div id="status" class="status" role="status" aria-live="polite">Secure link verify ho raha hai…</div>
+</section>
+<div class="foot">PahadiWedding.in · <a href="/">Website par wapas jaayein</a></div>
+</main>
+<script>
+(function(){
+"use strict";
+const SUPABASE_URL="https://evjzwhqheycsmvmjnclf.supabase.co";
+const PUBLISHABLE_KEY="sb_publishable_OUTOekYvhOgwpiYLniSRvA_javLnkuJ";
+const ENDPOINT=SUPABASE_URL+"/functions/v1/submit-vendor-photo-invite";
+const token=decodeURIComponent(location.hash.slice(1));
+const $=id=>document.getElementById(id);
+let remaining=0;
+function status(message,type){$("status").textContent=message;$("status").className="status"+(type?" "+type:"");}
+async function postJson(body){const response=await fetch(ENDPOINT,{method:"POST",headers:{"apikey":PUBLISHABLE_KEY,"Content-Type":"application/json"},body:JSON.stringify(body)});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Secure link could not be verified");return data;}
+async function inspect(){if(!/^[A-Za-z0-9_-]{40,60}$/.test(token)){status("Yeh upload link sahi nahi hai. Kripya PahadiWedding admin se naya link maangein.","err");return;}try{const data=await postJson({action:"inspect",token});remaining=data.remaining_uploads;$("vendorName").textContent=data.vendor_name;$("vendorMeta").textContent=[data.category,data.location].filter(Boolean).join(" · ");$("vendorCard").classList.remove("hidden");$("limitText").textContent="Is link se "+remaining+" photo(s) aur bhej sakte hain. Link expiry: "+new Date(data.expires_at).toLocaleDateString("en-IN")+". ";$("uploadPanel").classList.remove("hidden");if(remaining<=0){$("uploadButton").disabled=true;status("Is link ki photo limit poori ho chuki hai. Admin se fresh link maangein.","err");}else status("Aapka secure link verify ho gaya. Photos upload kar sakte hain.","ok");}catch(error){status(error.message||"Link verify nahi ho paya.","err");}}
+$("photos").addEventListener("change",()=>{const files=Array.from($("photos").files||[]);$("fileList").textContent=files.length?files.map(f=>f.name+" ("+(f.size/1024/1024).toFixed(2)+" MB)").join("\n"):"JPG, PNG ya WebP · har photo maximum 5 MB";});
+$("uploadForm").addEventListener("submit",async event=>{event.preventDefault();const files=Array.from($("photos").files||[]);if(!files.length||files.length>5){status("Ek baar mein 1 se 5 photos select karein.","err");return;}for(const file of files){if(!["image/jpeg","image/png","image/webp"].includes(file.type)||file.size>5*1024*1024){status("Har photo JPG, PNG ya WebP aur 5 MB se chhoti honi chahiye.","err");return;}}if(!$("consent").checked){status("Photo permission confirmation zaroori hai.","err");return;}if(files.length>remaining){status("Is link par sirf "+remaining+" photo(s) ki limit bachi hai.","err");return;}
+const button=$("uploadButton");button.disabled=true;status("Photos securely upload ho rahi hain…");try{const form=new FormData();form.append("token",token);form.append("consent","yes");files.forEach(file=>form.append("photos",file,file.name));const response=await fetch(ENDPOINT,{method:"POST",headers:{"apikey":PUBLISHABLE_KEY},body:form});const data=await response.json().catch(()=>({}));if(!response.ok)throw new Error(data.error||"Photo upload failed");remaining=data.remaining_uploads;$("photos").value="";$("fileList").textContent="";$("limitText").textContent="Is link se "+remaining+" photo(s) aur bhej sakte hain.";status(data.uploaded_count+" photo(s) PahadiWedding admin review ke liye submit ho gayi hain. Approval ke baad hi profile par dikhengi."+(data.failed?.length?"\n\nKuch files upload nahi hui:\n"+data.failed.join("\n"):""),"ok");if(remaining<=0)button.disabled=true;}catch(error){status(error.message||"Upload complete nahi ho paya. Dobara try karein.","err");}finally{if(remaining>0)button.disabled=false;}});
+inspect();
+})();
+</script>
+</body>
+</html>
