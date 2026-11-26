@@ -50,7 +50,8 @@ begin
     raise exception 'invalid_or_expired_link';
   end if;
 
-  if p_mime_type not in ('image/jpeg', 'image/png', 'image/webp')
+  if p_mime_type is null
+     or p_mime_type not in ('image/jpeg', 'image/png', 'image/webp')
      or p_file_size_bytes is null
      or p_file_size_bytes <= 0
      or p_file_size_bytes > 5242880 then
